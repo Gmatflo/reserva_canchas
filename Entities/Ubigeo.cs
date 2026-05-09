@@ -12,5 +12,10 @@ namespace MultiSport_Manager.Entities
         public string Departamento { get; set; }
         public string Provincia { get; set; }
         public string Distrito { get; set; }
+
+        public override string ToString()
+        {
+            return IDUbigeo.ToString(); 
+        }
     }
 }

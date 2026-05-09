@@ -11,14 +11,11 @@ namespace MultiSport_Manager.Controllers
     {
         private List<Notificacion> notificaciones = new List<Notificacion>();
 
-        public List<Notificacion> ListarTodo()
-        {
-            return notificaciones;
-        }
+        public List<Notificacion> ListarTodo() { return notificaciones; }
 
-        public List<Notificacion> ListarPorUsuario(int pIdUsuario)
+        public List<Notificacion> ListarPorCliente(int pIdCliente)
         {
-            return notificaciones.Where(n => n.UsuarioDestino != null && n.UsuarioDestino.IDUsuario == pIdUsuario).ToList();
+            return notificaciones.Where(n => n.ClienteDestino != null && n.ClienteDestino.IDCliente == pIdCliente).ToList();
         }
 
         private bool Existe(int pIdNotificacion)
@@ -28,15 +25,10 @@ namespace MultiSport_Manager.Controllers
 
         public bool RegistrarNotificacion(Notificacion pNotificacion)
         {
-            if (Existe(pNotificacion.IDNotificacion))
-            {
-                return false;
-            }
-            else
-            {
-                notificaciones.Add(pNotificacion);
-                return true;
-            }
+            if (Existe(pNotificacion.IDNotificacion)) return false;
+
+            notificaciones.Add(pNotificacion);
+            return true;
         }
 
         public bool EditarNotificacion(Notificacion pNotificacion)

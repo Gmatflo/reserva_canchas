@@ -12,7 +12,6 @@ namespace MultiSport_Manager.Entities
         public string Mensaje { get; set; }
         public DateTime FechaEnvio { get; set; }
 
-        // Relación con el Usuario (aplica polimorfismo para Cliente o Administrador)
-        public Usuario UsuarioDestino { get; set; }
+        public Cliente ClienteDestino { get; set; }
     }
 }

@@ -15,21 +15,22 @@ namespace reserva_canchas.forms
     public partial class FormCanchas : Form
     {
         private CanchaController canchaController;
+        private SedeController sedeController;
         private int idCanchaSeleccionada = -1;
 
-        public FormCanchas(CanchaController pCanchaController)
+        public FormCanchas(CanchaController pCanchaController, SedeController pSedeController)
         {
             InitializeComponent();
             this.canchaController = pCanchaController;
+            this.sedeController = pSedeController;
+            this.dgvCanchas.SelectionChanged += new System.EventHandler(this.dgvCanchas_SelectionChanged);
+            MostrarEnDataGrid(canchaController.ListarTodo());
         }
 
         private void MostrarEnDataGrid(List<Cancha> lista)
         {
             dgvCanchas.DataSource = null;
-            if (lista.Count > 0)
-            {
-                dgvCanchas.DataSource = lista;
-            }
+            if (lista.Count > 0) dgvCanchas.DataSource = lista;
         }
 
         private void FormGestiondeCanchas_Load(object sender, EventArgs e)
@@ -50,21 +51,24 @@ namespace reserva_canchas.forms
             cmbDeporte.SelectedIndex = 0;
 
             MostrarEnDataGrid(canchaController.ListarTodo());
+            LimpiarCampos();
         }
 
         private void LimpiarCampos()
         {
             txtIDCancha.Clear();
+            txtIDCancha.Enabled = true;
             txtIDSede.Clear();
             txtPrecio.Clear();
             cmbEstado.SelectedIndex = 0;
             cmbDeporte.SelectedIndex = 0;
             idCanchaSeleccionada = -1;
+            dgvCanchas.ClearSelection();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (txtIDCancha.Text == "" || txtPrecio.Text == "" || txtIDSede.Text == "")
+            if (txtIDCancha.Text == "" || txtPrecio.Text == "" || txtIDSede.Text == "" || cmbEstado.Text == "" || cmbDeporte.Text == "")
             {
                 MessageBox.Show("Complete todos los campos obligatorios.");
                 return;
@@ -72,33 +76,40 @@ namespace reserva_canchas.forms
 
             try
             {
+                int idSede = int.Parse(txtIDSede.Text);
+
+                // --- VALIDACIÓN DE INTEGRIDAD ---
+                Sede sedeReal = sedeController.BuscarSede(idSede);
+                if (sedeReal == null)
+                {
+                    MessageBox.Show("El ID de Sede ingresado no se encuentra registrado. Registre la Sede primero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 Cancha nuevaCancha = new Cancha();
                 nuevaCancha.IDCancha = int.Parse(txtIDCancha.Text);
                 nuevaCancha.PrecioHora = double.Parse(txtPrecio.Text);
                 nuevaCancha.Estado = cmbEstado.Text;
                 nuevaCancha.Deporte = cmbDeporte.Text;
-
-                // BUG CORREGIDO: Se debe usar txtIDSede, no txtIDCancha
-                nuevaCancha.Sede = new Sede { IDSede = int.Parse(txtIDSede.Text) };
+                nuevaCancha.Sede = sedeReal;
 
                 nuevaCancha.CreadoPor = 1;
                 nuevaCancha.ModificadoPor = 1;
 
-                if (canchaController.RegistrarCancha(nuevaCancha))
-                {
-                    MessageBox.Show("Cancha registrada correctamente.");
-                    MostrarEnDataGrid(canchaController.ListarTodo());
-                    LimpiarCampos();
-                }
-                else
+                if (!canchaController.RegistrarCancha(nuevaCancha))
                 {
                     MessageBox.Show("El ID de Cancha ya existe.");
+                    return;
                 }
             }
             catch (Exception)
             {
                 MessageBox.Show("Error: Verifique que ID y Precio sean solo números.");
+                return;
             }
+
+            MostrarEnDataGrid(canchaController.ListarTodo());
+            LimpiarCampos();
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -111,28 +122,40 @@ namespace reserva_canchas.forms
 
             try
             {
+                int idSede = int.Parse(txtIDSede.Text);
+
+                Sede sedeReal = sedeController.BuscarSede(idSede);
+                if (sedeReal == null)
+                {
+                    MessageBox.Show("El ID de Sede ingresado no existe en el sistema.");
+                    return;
+                }
+
                 Cancha canchaModificada = new Cancha();
                 canchaModificada.IDCancha = idCanchaSeleccionada;
                 canchaModificada.PrecioHora = double.Parse(txtPrecio.Text);
                 canchaModificada.Estado = cmbEstado.Text;
                 canchaModificada.Deporte = cmbDeporte.Text;
-                canchaModificada.Sede = new Sede { IDSede = int.Parse(txtIDSede.Text) };
+                canchaModificada.Sede = sedeReal;
 
                 canchaModificada.FechaCreacion = dtpFechaCreacion.Value;
                 canchaModificada.CreadoPor = string.IsNullOrEmpty(txtCreadoPor.Text) ? 1 : int.Parse(txtCreadoPor.Text);
+                canchaModificada.FechaModificacion = DateTime.Now;
                 canchaModificada.ModificadoPor = 1;
 
-                if (canchaController.EditarCancha(canchaModificada))
+                if (!canchaController.EditarCancha(canchaModificada))
                 {
-                    MessageBox.Show("Cancha modificada correctamente.");
-                    MostrarEnDataGrid(canchaController.ListarTodo());
-                    LimpiarCampos();
+                    return;
                 }
             }
             catch (Exception)
             {
                 MessageBox.Show("Error numérico al intentar modificar.");
+                return;
             }
+
+            MostrarEnDataGrid(canchaController.ListarTodo());
+            LimpiarCampos();
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -147,17 +170,14 @@ namespace reserva_canchas.forms
                     LimpiarCampos();
                 }
             }
-            else
-            {
-                MessageBox.Show("Seleccione una cancha de la lista.");
-            }
         }
 
-        private void dgvCanchas_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvCanchas_SelectionChanged(object sender, EventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (dgvCanchas.SelectedRows.Count > 0)
             {
-                DataGridViewRow fila = dgvCanchas.Rows[e.RowIndex];
+                var fila = dgvCanchas.SelectedRows[0];
+                if (fila.Cells["IDCancha"].Value == null) return;
 
                 txtIDCancha.Text = fila.Cells["IDCancha"].Value.ToString();
                 txtPrecio.Text = fila.Cells["PrecioHora"].Value.ToString();
@@ -170,13 +190,18 @@ namespace reserva_canchas.forms
                     txtIDSede.Text = sedeAsociada.IDSede.ToString();
                 }
 
-                idCanchaSeleccionada = int.Parse(txtIDCancha.Text);
+                txtCreadoPor.Text = fila.Cells["CreadoPor"].Value.ToString();
+                dtpFechaCreacion.Value = Convert.ToDateTime(fila.Cells["FechaCreacion"].Value);
+                txtModificadoPor.Text = fila.Cells["ModificadoPor"].Value.ToString();
+                dtpFechaModificacion.Value = Convert.ToDateTime(fila.Cells["FechaModificacion"].Value);
+
+                idCanchaSeleccionada = Convert.ToInt32(fila.Cells["IDCancha"].Value);
+                txtIDCancha.Enabled = false;
             }
         }
 
         private void btnMenu_Click(object sender, EventArgs e) { RegresarAlMenu(); }
         private void FormGestiondeCanchas_FormClosed(object sender, FormClosedEventArgs e) { RegresarAlMenu(); }
-
         private void RegresarAlMenu()
         {
             Form principal = Application.OpenForms["FormPrincipal"];

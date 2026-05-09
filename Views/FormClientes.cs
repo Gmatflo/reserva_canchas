@@ -2,12 +2,6 @@
 using MultiSport_Manager.Entities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace reserva_canchas
@@ -21,6 +15,8 @@ namespace reserva_canchas
         {
             InitializeComponent();
             this.clienteController = pClienteController;
+            this.dgvClientes.SelectionChanged += new System.EventHandler(this.dgvClientes_SelectionChanged);
+            MostrarEnDataGrid(clienteController.ListarTodo());
         }
 
         private void MostrarEnDataGrid(List<Cliente> lista)
@@ -29,8 +25,12 @@ namespace reserva_canchas
             if (lista.Count > 0)
             {
                 dgvClientes.DataSource = lista;
+
                 if (dgvClientes.Columns["Contrasena"] != null) dgvClientes.Columns["Contrasena"].Visible = false;
                 if (dgvClientes.Columns["IDUsuario"] != null) dgvClientes.Columns["IDUsuario"].Visible = false;
+
+                if (dgvClientes.Columns["FechaNacimiento"] != null)
+                    dgvClientes.Columns["FechaNacimiento"].DefaultCellStyle.Format = "dd/MM/yyyy";
             }
         }
 
@@ -47,10 +47,16 @@ namespace reserva_canchas
         private void LimpiarCampos()
         {
             txtIDCliente.Clear();
+            txtIDCliente.Enabled = true;
             txtDNI.Clear();
             txtNombre.Clear();
             txtTelefono.Clear();
             dtpFechaNacimiento.Value = DateTime.Now;
+
+            txtCreadoPor.Clear();
+            txtModificadoPor.Clear();
+            dtpFechaCreacion.Value = DateTime.Now;
+            dtpFechaModificacion.Value = DateTime.Now;
 
             idClienteSeleccionado = -1;
         }
@@ -70,21 +76,19 @@ namespace reserva_canchas
                 nuevoCliente.DNI = txtDNI.Text;
                 nuevoCliente.Nombre = txtNombre.Text;
                 nuevoCliente.Telefono = txtTelefono.Text;
-                nuevoCliente.FechaNacimiento = dtpFechaNacimiento.Value;
+                nuevoCliente.FechaNacimiento = dtpFechaNacimiento.Value.Date;
 
                 nuevoCliente.CreadoPor = 1;
                 nuevoCliente.ModificadoPor = 1;
 
-                if (clienteController.RegistrarCliente(nuevoCliente))
-                {
-                    MessageBox.Show("Cliente registrado correctamente.");
-                    MostrarEnDataGrid(clienteController.ListarTodo());
-                    LimpiarCampos();
-                }
-                else
+                if (!clienteController.RegistrarCliente(nuevoCliente))
                 {
                     MessageBox.Show("El DNI o ID de Cliente ya existe en el sistema.");
+                    return;
                 }
+
+                MostrarEnDataGrid(clienteController.ListarTodo());
+                LimpiarCampos();
             }
             catch (Exception)
             {
@@ -103,19 +107,20 @@ namespace reserva_canchas
             try
             {
                 Cliente clienteModificado = new Cliente();
-                clienteModificado.IDCliente = idClienteSeleccionado;
+                clienteModificado.IDCliente = idClienteSeleccionado; // ID Original
                 clienteModificado.DNI = txtDNI.Text;
                 clienteModificado.Nombre = txtNombre.Text;
                 clienteModificado.Telefono = txtTelefono.Text;
-                clienteModificado.FechaNacimiento = dtpFechaNacimiento.Value;
+                clienteModificado.FechaNacimiento = dtpFechaNacimiento.Value.Date;
 
                 clienteModificado.FechaCreacion = dtpFechaCreacion.Value;
                 clienteModificado.CreadoPor = string.IsNullOrEmpty(txtCreadoPor.Text) ? 1 : int.Parse(txtCreadoPor.Text);
+
+                clienteModificado.FechaModificacion = DateTime.Now;
                 clienteModificado.ModificadoPor = 1;
 
                 if (clienteController.EditarCliente(clienteModificado))
                 {
-                    MessageBox.Show("Cliente modificado correctamente.");
                     MostrarEnDataGrid(clienteController.ListarTodo());
                     LimpiarCampos();
                 }
@@ -130,27 +135,27 @@ namespace reserva_canchas
         {
             if (idClienteSeleccionado != -1)
             {
-                DialogResult dialogResult = MessageBox.Show("¿Está seguro de eliminar este cliente?", "Confirmar", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    clienteController.EliminarCliente(idClienteSeleccionado);
-                    MostrarEnDataGrid(clienteController.ListarTodo());
-                    LimpiarCampos();
-                }
+
+                clienteController.EliminarCliente(idClienteSeleccionado);
+                MostrarEnDataGrid(clienteController.ListarTodo());
+                LimpiarCampos();
+
             }
         }
 
-        private void dgvClientes_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvClientes_SelectionChanged(object sender, EventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (dgvClientes.SelectedRows.Count > 0)
             {
-                DataGridViewRow fila = dgvClientes.Rows[e.RowIndex];
+                var fila = dgvClientes.SelectedRows[0];
 
                 txtIDCliente.Text = fila.Cells["IDCliente"].Value.ToString();
                 txtDNI.Text = fila.Cells["DNI"].Value.ToString();
                 txtNombre.Text = fila.Cells["Nombre"].Value.ToString();
                 txtTelefono.Text = fila.Cells["Telefono"].Value.ToString();
-                dtpFechaNacimiento.Value = Convert.ToDateTime(fila.Cells["FechaNacimiento"].Value);
+
+                if (fila.Cells["FechaNacimiento"].Value != null)
+                    dtpFechaNacimiento.Value = Convert.ToDateTime(fila.Cells["FechaNacimiento"].Value);
 
                 txtCreadoPor.Text = fila.Cells["CreadoPor"].Value.ToString();
                 dtpFechaCreacion.Value = Convert.ToDateTime(fila.Cells["FechaCreacion"].Value);
@@ -158,6 +163,7 @@ namespace reserva_canchas
                 dtpFechaModificacion.Value = Convert.ToDateTime(fila.Cells["FechaModificacion"].Value);
 
                 idClienteSeleccionado = int.Parse(txtIDCliente.Text);
+
             }
         }
 

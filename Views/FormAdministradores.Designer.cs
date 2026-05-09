@@ -150,6 +150,10 @@
             // cmbPermiso
             // 
             this.cmbPermiso.FormattingEnabled = true;
+            this.cmbPermiso.Items.AddRange(new object[] {
+            "COMPLETO",
+            "PARCIAL(SOLO GESTION)",
+            "DISMINUIDO"});
             this.cmbPermiso.Location = new System.Drawing.Point(317, 154);
             this.cmbPermiso.Margin = new System.Windows.Forms.Padding(2);
             this.cmbPermiso.Name = "cmbPermiso";
@@ -440,7 +444,7 @@
             this.button2.Location = new System.Drawing.Point(128, 376);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(87, 32);
+            this.button2.Size = new System.Drawing.Size(98, 32);
             this.button2.TabIndex = 51;
             this.button2.Text = "Modificar";
             this.button2.UseVisualStyleBackColor = false;
@@ -453,7 +457,7 @@
             this.button1.Location = new System.Drawing.Point(11, 376);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(87, 32);
+            this.button1.Size = new System.Drawing.Size(110, 32);
             this.button1.TabIndex = 50;
             this.button1.Text = "+ Registrar";
             this.button1.UseVisualStyleBackColor = false;

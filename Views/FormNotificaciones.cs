@@ -15,21 +15,22 @@ namespace reserva_canchas.forms
     public partial class FormNotificaciones : Form
     {
         private NotificacionController notificacionController;
+        private ClienteController clienteController;
         private int idNotificacionSeleccionada = -1;
 
-        public FormNotificaciones(NotificacionController pNotificacionController)
+        public FormNotificaciones(NotificacionController pNotificacionController, ClienteController pClienteController)
         {
             InitializeComponent();
             this.notificacionController = pNotificacionController;
+            this.clienteController = pClienteController;
+            this.dgvNotificaciones.SelectionChanged += new System.EventHandler(this.dgvNotificaciones_SelectionChanged);
+            MostrarEnDataGrid(notificacionController.ListarTodo());
         }
 
         private void MostrarEnDataGrid(List<Notificacion> lista)
         {
             dgvNotificaciones.DataSource = null;
-            if (lista.Count > 0)
-            {
-                dgvNotificaciones.DataSource = lista;
-            }
+            if (lista.Count > 0) dgvNotificaciones.DataSource = lista;
         }
 
         private void FormNotificaciones_Load(object sender, EventArgs e)
@@ -39,21 +40,19 @@ namespace reserva_canchas.forms
             dtpFechaCreacion.Enabled = false;
             dtpFechaModificacion.Enabled = false;
 
-            cmbLeido.Items.Add("Si");
-            cmbLeido.Items.Add("No");
-            cmbLeido.SelectedIndex = 1;
-
             MostrarEnDataGrid(notificacionController.ListarTodo());
+            LimpiarCampos();
         }
 
         private void LimpiarCampos()
         {
             txtIDNotificacion.Clear();
+            txtIDNotificacion.Enabled = true;
             txtIDUsuario.Clear();
             dtpFecha.Value = DateTime.Now;
             txtMensaje.Clear();
-            cmbLeido.SelectedIndex = 1;
             idNotificacionSeleccionada = -1;
+            dgvNotificaciones.ClearSelection();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -66,31 +65,37 @@ namespace reserva_canchas.forms
 
             try
             {
+                int idCliente = int.Parse(txtIDUsuario.Text);
+                Cliente clienteReal = clienteController.BuscarClientePorID(idCliente);
+
+                if (clienteReal == null)
+                {
+                    MessageBox.Show("El ID de Cliente ingresado no existe.");
+                    return;
+                }
+
                 Notificacion nuevaNotificacion = new Notificacion();
                 nuevaNotificacion.IDNotificacion = int.Parse(txtIDNotificacion.Text);
                 nuevaNotificacion.FechaEnvio = dtpFecha.Value;
                 nuevaNotificacion.Mensaje = txtMensaje.Text;
-
-                nuevaNotificacion.UsuarioDestino = new Usuario { IDUsuario = int.Parse(txtIDUsuario.Text) };
-
+                nuevaNotificacion.ClienteDestino = clienteReal;
                 nuevaNotificacion.CreadoPor = 1;
                 nuevaNotificacion.ModificadoPor = 1;
 
-                if (notificacionController.RegistrarNotificacion(nuevaNotificacion))
-                {
-                    MessageBox.Show("Notificación guardada.");
-                    MostrarEnDataGrid(notificacionController.ListarTodo());
-                    LimpiarCampos();
-                }
-                else
+                if (!notificacionController.RegistrarNotificacion(nuevaNotificacion))
                 {
                     MessageBox.Show("El ID de notificación ya existe.");
+                    return;
                 }
             }
             catch (Exception)
             {
-                MessageBox.Show("Asegúrese de ingresar números en los campos de ID.");
+                MessageBox.Show("Error: Use solo números para los IDs.");
+                return;
             }
+
+            MostrarEnDataGrid(notificacionController.ListarTodo());
+            LimpiarCampos();
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -103,60 +108,66 @@ namespace reserva_canchas.forms
 
             try
             {
+                int idCliente = int.Parse(txtIDUsuario.Text);
+                Cliente clienteReal = clienteController.BuscarClientePorID(idCliente);
+
+                if (clienteReal == null)
+                {
+                    MessageBox.Show("El ID de Cliente no existe.");
+                    return;
+                }
+
                 Notificacion notifModificada = new Notificacion();
                 notifModificada.IDNotificacion = idNotificacionSeleccionada;
                 notifModificada.FechaEnvio = dtpFecha.Value;
                 notifModificada.Mensaje = txtMensaje.Text;
-                notifModificada.UsuarioDestino = new Usuario { IDUsuario = int.Parse(txtIDUsuario.Text) };
-
+                notifModificada.ClienteDestino = clienteReal;
                 notifModificada.FechaCreacion = dtpFechaCreacion.Value;
-                notifModificada.CreadoPor = string.IsNullOrEmpty(txtCreadoPor.Text) ? 1 : int.Parse(txtCreadoPor.Text);
+                notifModificada.CreadoPor = 1;
+                notifModificada.FechaModificacion = DateTime.Now;
                 notifModificada.ModificadoPor = 1;
 
-                if (notificacionController.EditarNotificacion(notifModificada))
-                {
-                    MessageBox.Show("Notificación actualizada.");
-                    MostrarEnDataGrid(notificacionController.ListarTodo());
-                    LimpiarCampos();
-                }
+                notificacionController.EditarNotificacion(notifModificada);
             }
             catch (Exception)
             {
-                MessageBox.Show("Error numérico en los campos de ID.");
+                MessageBox.Show("Error al modificar. Verifique los datos.");
+                return;
             }
+
+            MostrarEnDataGrid(notificacionController.ListarTodo());
+            LimpiarCampos();
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (idNotificacionSeleccionada != -1)
             {
-                DialogResult dialogResult = MessageBox.Show("¿Eliminar esta notificación?", "Confirmar", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    notificacionController.EliminarNotificacion(idNotificacionSeleccionada);
-                    MostrarEnDataGrid(notificacionController.ListarTodo());
-                    LimpiarCampos();
-                }
+                notificacionController.EliminarNotificacion(idNotificacionSeleccionada);
+                MostrarEnDataGrid(notificacionController.ListarTodo());
+                LimpiarCampos();
             }
         }
 
-        private void dgvNotificaciones_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvNotificaciones_SelectionChanged(object sender, EventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (dgvNotificaciones.SelectedRows.Count > 0)
             {
-                DataGridViewRow fila = dgvNotificaciones.Rows[e.RowIndex];
+                var fila = dgvNotificaciones.SelectedRows[0];
+                if (fila.Cells["IDNotificacion"].Value == null) return;
 
                 txtIDNotificacion.Text = fila.Cells["IDNotificacion"].Value.ToString();
                 dtpFecha.Value = Convert.ToDateTime(fila.Cells["FechaEnvio"].Value);
                 txtMensaje.Text = fila.Cells["Mensaje"].Value.ToString();
 
-                if (fila.Cells["UsuarioDestino"].Value != null)
+                if (fila.Cells["ClienteDestino"].Value != null)
                 {
-                    var usuarioAsociado = (Usuario)fila.Cells["UsuarioDestino"].Value;
-                    txtIDUsuario.Text = usuarioAsociado.IDUsuario.ToString();
+                    var clienteAsociado = (Cliente)fila.Cells["ClienteDestino"].Value;
+                    txtIDUsuario.Text = clienteAsociado.IDCliente.ToString();
                 }
 
-                idNotificacionSeleccionada = int.Parse(txtIDNotificacion.Text);
+                idNotificacionSeleccionada = Convert.ToInt32(fila.Cells["IDNotificacion"].Value);
+                txtIDNotificacion.Enabled = false;
             }
         }
 
