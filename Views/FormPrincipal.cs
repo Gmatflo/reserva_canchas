@@ -47,7 +47,7 @@ namespace MultiSport_Manager.Views
 
         private void lblCanchas_Click(object sender, EventArgs e)
         {
-            FormCanchas formCanchas = new FormCanchas(this.canchaController);
+            FormCanchas formCanchas = new FormCanchas(this.canchaController, this.sedeController);
             formCanchas.Show();
             this.Hide();
         }
@@ -75,7 +75,7 @@ namespace MultiSport_Manager.Views
 
         private void lblNotificaciones_Click(object sender, EventArgs e)
         {
-            FormNotificaciones formNotificaciones = new FormNotificaciones(this.notificacionController);
+            FormNotificaciones formNotificaciones = new FormNotificaciones(this.notificacionController, this.clienteController);
             formNotificaciones.Show();
             this.Hide();
         }

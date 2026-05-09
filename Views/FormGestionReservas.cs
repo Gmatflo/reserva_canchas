@@ -16,9 +16,8 @@ namespace reserva_canchas
     public partial class FormGestionReservas : Form
     {
         private ReservaController reservaController;
-        private ClienteController clienteController; 
-        private CanchaController canchaController; 
-
+        private ClienteController clienteController;
+        private CanchaController canchaController;
         private int idReservaSeleccionada = -1;
 
         public FormGestionReservas(ReservaController pReservaController, ClienteController pClienteController, CanchaController pCanchaController)
@@ -27,20 +26,25 @@ namespace reserva_canchas
             this.reservaController = pReservaController;
             this.clienteController = pClienteController;
             this.canchaController = pCanchaController;
+            this.dgvReservas.SelectionChanged += new System.EventHandler(this.dgvReservas_SelectionChanged);
+            MostrarEnDataGrid(reservaController.ListarTodo());
         }
 
         private void MostrarEnDataGrid(List<Reserva> lista)
         {
             dgvReservas.DataSource = null;
-            if (lista.Count > 0)
+
+            List<Reserva> listaActual = reservaController.ListarTodo();
+
+            if (listaActual.Count > 0)
             {
-                dgvReservas.DataSource = lista;
+                dgvReservas.DataSource = listaActual;
             }
 
-            lblTotalReservas.Text = lista.Count.ToString();
-            lblConfirmadas.Text = lista.Count(r => r.Estado == "Confirmada").ToString();
-            lblPendientes.Text = lista.Count(r => r.Estado == "Pendiente").ToString();
-            lblCanceladas.Text = lista.Count(r => r.Estado == "Cancelada").ToString();
+            lblTotalReservas.Text = listaActual.Count.ToString();
+            lblConfirmadas.Text = listaActual.Count(r => r.Estado == "Confirmada").ToString();
+            lblPendientes.Text = listaActual.Count(r => r.Estado == "Pendiente").ToString();
+            lblCanceladas.Text = listaActual.Count(r => r.Estado == "Cancelada").ToString();
         }
 
         private void FormGestionReservas_Load(object sender, EventArgs e)
@@ -61,11 +65,13 @@ namespace reserva_canchas
             cmbEstado.SelectedIndex = 0;
 
             MostrarEnDataGrid(reservaController.ListarTodo());
+            LimpiarCampos();
         }
 
         private void LimpiarCampos()
         {
             txtIDReserva.Clear();
+            txtIDReserva.Enabled = true;
             txtMontoTotal.Clear();
             txtIDCliente.Clear();
             txtIDCancha.Clear();
@@ -73,12 +79,19 @@ namespace reserva_canchas
             dtpHoraInicio.Value = DateTime.Now;
             dtpHoraFin.Value = DateTime.Now;
             cmbEstado.SelectedIndex = 0;
+
+            txtCreadoPor.Clear();
+            txtModificadoPor.Clear();
+            dtpFechaCreacion.Value = DateTime.Now;
+            dtpFechaModificacion.Value = DateTime.Now;
+
             idReservaSeleccionada = -1;
+            dgvReservas.ClearSelection();
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
+        private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            if (txtIDReserva.Text == "" || txtIDCliente.Text == "" || txtIDCancha.Text == "" || txtMontoTotal.Text == "")
+            if (txtIDReserva.Text == "" || txtIDCliente.Text == "" || txtIDCancha.Text == "" || txtMontoTotal.Text == "" || cmbEstado.Text == "")
             {
                 MessageBox.Show("Complete todos los campos obligatorios.");
                 return;
@@ -89,36 +102,21 @@ namespace reserva_canchas
                 int idCliente = int.Parse(txtIDCliente.Text);
                 int idCancha = int.Parse(txtIDCancha.Text);
 
-                // --- VALIDACIÓN 1: INTEGRIDAD REFERENCIAL (¿Existen?) ---
                 Cliente clienteReal = clienteController.BuscarClientePorID(idCliente);
-                if (clienteReal == null)
-                {
-                    MessageBox.Show("El ID de Cliente ingresado no se encuentra registrado en el sistema.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
                 Cancha canchaReal = canchaController.BuscarCancha(idCancha);
-                if (canchaReal == null)
+
+                if (clienteReal == null || canchaReal == null)
                 {
-                    MessageBox.Show("El ID de Cancha ingresado no existe en el sistema.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error: El ID de Cliente o de Cancha no existen.");
                     return;
                 }
 
-                // --- VALIDACIÓN 2: LÓGICA DE TIEMPO (Múltiplos de hora exacta) ---
                 TimeSpan inicio = dtpHoraInicio.Value.TimeOfDay;
                 TimeSpan fin = dtpHoraFin.Value.TimeOfDay;
 
-                if (inicio >= fin)
+                if (inicio >= fin || (fin - inicio).TotalMinutes % 60 != 0)
                 {
-                    MessageBox.Show("La hora de inicio debe ser estrictamente antes que la hora de fin.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                TimeSpan diferencia = fin - inicio;
-                // Verificamos si los minutos totales son divisibles exactamente entre 60
-                if (diferencia.TotalMinutes % 60 != 0)
-                {
-                    MessageBox.Show("Las reservas deben ser por bloques de horas exactas (Ej: 1 hora, 2 horas). No se permiten fracciones.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("La reserva debe ser por bloques de horas exactas (ej: 1h, 2h) y el inicio antes que el fin.");
                     return;
                 }
 
@@ -129,28 +127,26 @@ namespace reserva_canchas
                 nuevaReserva.HoraFin = fin;
                 nuevaReserva.MontoTotal = double.Parse(txtMontoTotal.Text);
                 nuevaReserva.Estado = cmbEstado.Text;
-
-                // Asignamos los objetos reales que encontramos
                 nuevaReserva.Cliente = clienteReal;
                 nuevaReserva.Cancha = canchaReal;
-
                 nuevaReserva.CreadoPor = 1;
                 nuevaReserva.ModificadoPor = 1;
 
-                if (reservaController.RegistrarReserva(nuevaReserva))
+                if (!reservaController.RegistrarReserva(nuevaReserva))
                 {
-                    MostrarEnDataGrid(reservaController.ListarTodo());
-                    LimpiarCampos();
-                }
-                else
-                {
-                    MessageBox.Show("Error: ID duplicado o existe CRUCE DE HORARIOS en esa Cancha y Fecha.");
+                    MessageBox.Show("ID duplicado o Cruce de horarios detectado.");
+                    return;
                 }
             }
             catch (Exception)
             {
-                MessageBox.Show("Verifique que los IDs y el Monto sean solo números.");
+                MessageBox.Show("Error: Verifique que los datos numéricos (IDs, Monto) sean correctos.");
+                return;
             }
+
+            // Actualización fuera del try-catch para evitar falsos errores
+            MostrarEnDataGrid(reservaController.ListarTodo());
+            LimpiarCampos();
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -166,35 +162,21 @@ namespace reserva_canchas
                 int idCliente = int.Parse(txtIDCliente.Text);
                 int idCancha = int.Parse(txtIDCancha.Text);
 
-                // --- VALIDACIÓN 1: INTEGRIDAD REFERENCIAL ---
                 Cliente clienteReal = clienteController.BuscarClientePorID(idCliente);
-                if (clienteReal == null)
-                {
-                    MessageBox.Show("El ID de Cliente ingresado no se encuentra registrado.");
-                    return;
-                }
-
                 Cancha canchaReal = canchaController.BuscarCancha(idCancha);
-                if (canchaReal == null)
+
+                if (clienteReal == null || canchaReal == null)
                 {
-                    MessageBox.Show("El ID de Cancha ingresado no existe.");
+                    MessageBox.Show("Error: El ID de Cliente o de Cancha no existen.");
                     return;
                 }
 
-                // --- VALIDACIÓN 2: LÓGICA DE TIEMPO ---
                 TimeSpan inicio = dtpHoraInicio.Value.TimeOfDay;
                 TimeSpan fin = dtpHoraFin.Value.TimeOfDay;
 
-                if (inicio >= fin)
+                if (inicio >= fin || (fin - inicio).TotalMinutes % 60 != 0)
                 {
-                    MessageBox.Show("La hora de inicio debe ser antes que la hora de fin.");
-                    return;
-                }
-
-                TimeSpan diferencia = fin - inicio;
-                if (diferencia.TotalMinutes % 60 != 0)
-                {
-                    MessageBox.Show("Las reservas deben ser por bloques de horas exactas.");
+                    MessageBox.Show("Debe ser por bloques de 1 hora exacta.");
                     return;
                 }
 
@@ -205,36 +187,36 @@ namespace reserva_canchas
                 reservaModificada.HoraFin = fin;
                 reservaModificada.MontoTotal = double.Parse(txtMontoTotal.Text);
                 reservaModificada.Estado = cmbEstado.Text;
-
                 reservaModificada.Cliente = clienteReal;
                 reservaModificada.Cancha = canchaReal;
 
+                // Auditoría
                 reservaModificada.FechaCreacion = dtpFechaCreacion.Value;
                 reservaModificada.CreadoPor = string.IsNullOrEmpty(txtCreadoPor.Text) ? 1 : int.Parse(txtCreadoPor.Text);
+                reservaModificada.FechaModificacion = DateTime.Now;
                 reservaModificada.ModificadoPor = 1;
 
-                if (reservaController.EditarReserva(reservaModificada))
+                if (!reservaController.EditarReserva(reservaModificada))
                 {
-                    // SIN MESSAGEBOX DE EXITO
-                    MostrarEnDataGrid(reservaController.ListarTodo());
-                    LimpiarCampos();
-                }
-                else
-                {
-                    MessageBox.Show("Cruce de horarios detectado, no se pudo editar.");
+                    MessageBox.Show("Error: No se pudo editar por cruce de horarios.");
+                    return;
                 }
             }
             catch (Exception)
             {
-                MessageBox.Show("Error numérico en el formulario.");
+                MessageBox.Show("Verifique los datos ingresados.");
+                return;
             }
+
+            MostrarEnDataGrid(reservaController.ListarTodo());
+            LimpiarCampos();
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (idReservaSeleccionada != -1)
             {
-                DialogResult dialogResult = MessageBox.Show("¿Desea CANCELAR esta reserva? (Esto liberará la cancha)", "Confirmar", MessageBoxButtons.YesNo);
+                DialogResult dialogResult = MessageBox.Show("¿Desea CANCELAR esta reserva?", "Confirmar", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
                     reservaController.CancelarReserva(idReservaSeleccionada);
@@ -244,11 +226,12 @@ namespace reserva_canchas
             }
         }
 
-        private void dgvReservas_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvReservas_SelectionChanged(object sender, EventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (dgvReservas.SelectedRows.Count > 0)
             {
-                DataGridViewRow fila = dgvReservas.Rows[e.RowIndex];
+                var fila = dgvReservas.SelectedRows[0];
+                if (fila.Cells["IDReserva"].Value == null) return;
 
                 txtIDReserva.Text = fila.Cells["IDReserva"].Value.ToString();
                 dtpFecha.Value = Convert.ToDateTime(fila.Cells["Fecha"].Value);
@@ -263,7 +246,14 @@ namespace reserva_canchas
                 if (fila.Cells["Cancha"].Value != null)
                     txtIDCancha.Text = ((Cancha)fila.Cells["Cancha"].Value).IDCancha.ToString();
 
-                idReservaSeleccionada = int.Parse(txtIDReserva.Text);
+                // Auditoría
+                txtCreadoPor.Text = fila.Cells["CreadoPor"].Value.ToString();
+                dtpFechaCreacion.Value = Convert.ToDateTime(fila.Cells["FechaCreacion"].Value);
+                txtModificadoPor.Text = fila.Cells["ModificadoPor"].Value.ToString();
+                dtpFechaModificacion.Value = Convert.ToDateTime(fila.Cells["FechaModificacion"].Value);
+
+                idReservaSeleccionada = Convert.ToInt32(fila.Cells["IDReserva"].Value);
+                txtIDReserva.Enabled = false; // Bloqueamos el ID para evitar ediciones de PK
             }
         }
 
@@ -274,7 +264,6 @@ namespace reserva_canchas
                 MessageBox.Show("Seleccione una Reserva primero.");
                 return;
             }
-
             Form principal = Application.OpenForms["FormPrincipal"];
             if (principal != null)
             {
@@ -286,7 +275,6 @@ namespace reserva_canchas
 
         private void btnMenu_Click(object sender, EventArgs e) { RegresarAlMenu(); }
         private void FormGestionReservas_FormClosed(object sender, FormClosedEventArgs e) { RegresarAlMenu(); }
-
         private void RegresarAlMenu()
         {
             Form principal = Application.OpenForms["FormPrincipal"];

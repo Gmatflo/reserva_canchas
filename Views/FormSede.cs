@@ -111,7 +111,6 @@ namespace reserva_canchas.forms
 
                 if (sedeController.RegistrarSede(nuevaSede))
                 {
-                    MessageBox.Show("Sede registrada correctamente.");
                     MostrarSedesEnDataGrid(sedeController.ListarTodo());
                     LimpiarCampos();
                 }

@@ -2,12 +2,6 @@
 using MultiSport_Manager.Entities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace reserva_canchas.forms
@@ -21,6 +15,8 @@ namespace reserva_canchas.forms
         {
             InitializeComponent();
             this.adminController = pAdminController;
+            this.dgvAdministradores.SelectionChanged += new System.EventHandler(this.dgvAdministradores_SelectionChanged);
+            MostrarEnDataGrid(adminController.ListarTodo());
         }
 
         private void MostrarEnDataGrid(List<Administrador> lista)
@@ -29,8 +25,9 @@ namespace reserva_canchas.forms
             if (lista.Count > 0)
             {
                 dgvAdministradores.DataSource = lista;
-                if (dgvAdministradores.Columns["Contrasena"] != null)
-                    dgvAdministradores.Columns["Contrasena"].Visible = false;
+
+                if (dgvAdministradores.Columns["FechaNacimiento"] != null)
+                    dgvAdministradores.Columns["FechaNacimiento"].DefaultCellStyle.Format = "dd/MM/yyyy";
             }
         }
 
@@ -47,22 +44,32 @@ namespace reserva_canchas.forms
             cmbPermiso.SelectedIndex = 0;
 
             MostrarEnDataGrid(adminController.ListarTodo());
+            LimpiarCampos();
         }
 
         private void LimpiarCampos()
         {
             txtID.Clear();
+            txtID.Enabled = true; 
             txtDNI.Clear();
             txtNombre.Clear();
             txtTelefono.Clear();
             txtContrasena.Clear();
             cmbPermiso.SelectedIndex = 0;
+            dtpFechaInicio.Value = DateTime.Now;
+
+            txtCreadoPor.Clear();
+            txtModificadoPor.Clear();
+            dtpFechaCreacion.Value = DateTime.Now;
+            dtpFechaModificacion.Value = DateTime.Now;
+
             idAdminSeleccionado = -1;
+            dgvAdministradores.ClearSelection(); 
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (txtID.Text == "" || txtDNI.Text == "" || txtNombre.Text == "")
+            if (txtID.Text == "" || txtDNI.Text == "" || txtNombre.Text == "" || cmbPermiso.Text == "" || txtContrasena.Text == "" || txtTelefono.Text == "")
             {
                 MessageBox.Show("Por favor, complete todos los campos obligatorios.");
                 return;
@@ -77,26 +84,24 @@ namespace reserva_canchas.forms
                 nuevoAdmin.Telefono = txtTelefono.Text;
                 nuevoAdmin.Permisos = cmbPermiso.Text;
                 nuevoAdmin.Contrasena = txtContrasena.Text;
-
+                nuevoAdmin.FechaNacimiento = dtpFechaInicio.Value.Date;
                 nuevoAdmin.CreadoPor = 1;
                 nuevoAdmin.ModificadoPor = 1;
 
-                bool registroExito = adminController.RegistrarAdministrador(nuevoAdmin);
-
-                if (!registroExito)
+                if (!adminController.RegistrarAdministrador(nuevoAdmin))
                 {
                     MessageBox.Show("El DNI o ID ya existe en el sistema.");
-                    return;
+                    return; 
                 }
-
-                MessageBox.Show("Administrador registrado correctamente.");
-                MostrarEnDataGrid(adminController.ListarTodo());
-                LimpiarCampos();
             }
             catch (Exception)
             {
                 MessageBox.Show("Error: Asegúrese de ingresar solo números en el ID.");
+                return; 
             }
+
+            MostrarEnDataGrid(adminController.ListarTodo());
+            LimpiarCampos();
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -116,23 +121,26 @@ namespace reserva_canchas.forms
                 adminModificado.Telefono = txtTelefono.Text;
                 adminModificado.Permisos = cmbPermiso.Text;
                 adminModificado.Contrasena = txtContrasena.Text;
+                adminModificado.FechaNacimiento = dtpFechaInicio.Value.Date;
 
                 adminModificado.FechaCreacion = dtpFechaCreacion.Value;
                 adminModificado.CreadoPor = string.IsNullOrEmpty(txtCreadoPor.Text) ? 1 : int.Parse(txtCreadoPor.Text);
+                adminModificado.FechaModificacion = DateTime.Now;
                 adminModificado.ModificadoPor = 1;
 
-                bool editado = adminController.EditarAdministrador(adminModificado);
-                if (editado)
+                if (!adminController.EditarAdministrador(adminModificado))
                 {
-                    MessageBox.Show("Administrador modificado.");
-                    MostrarEnDataGrid(adminController.ListarTodo());
-                    LimpiarCampos();
+                    return;
                 }
             }
             catch (Exception)
             {
-                MessageBox.Show("Error al modificar. Verifique los datos numéricos.");
+                MessageBox.Show("Error al modificar. Verifique los datos.");
+                return;
             }
+
+            MostrarEnDataGrid(adminController.ListarTodo());
+            LimpiarCampos();
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -147,23 +155,27 @@ namespace reserva_canchas.forms
                     LimpiarCampos();
                 }
             }
-            else
-            {
-                MessageBox.Show("Seleccione un administrador de la tabla.");
-            }
         }
 
-        private void dgvAdministradores_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvAdministradores_SelectionChanged(object sender, EventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (dgvAdministradores.SelectedRows.Count > 0)
             {
-                DataGridViewRow fila = dgvAdministradores.Rows[e.RowIndex];
+                var fila = dgvAdministradores.SelectedRows[0];
+
+                if (fila.Cells["IDAdministrador"].Value == null)
+                { 
+                    return;
+                }
 
                 txtID.Text = fila.Cells["IDAdministrador"].Value.ToString();
                 txtDNI.Text = fila.Cells["DNI"].Value.ToString();
                 txtNombre.Text = fila.Cells["Nombre"].Value.ToString();
                 txtTelefono.Text = fila.Cells["Telefono"].Value.ToString();
                 cmbPermiso.Text = fila.Cells["Permisos"].Value.ToString();
+
+                if (fila.Cells["FechaNacimiento"].Value != null)
+                    dtpFechaInicio.Value = Convert.ToDateTime(fila.Cells["FechaNacimiento"].Value);
 
                 if (fila.Cells["Contrasena"].Value != null)
                     txtContrasena.Text = fila.Cells["Contrasena"].Value.ToString();
@@ -173,13 +185,13 @@ namespace reserva_canchas.forms
                 txtModificadoPor.Text = fila.Cells["ModificadoPor"].Value.ToString();
                 dtpFechaModificacion.Value = Convert.ToDateTime(fila.Cells["FechaModificacion"].Value);
 
-                idAdminSeleccionado = int.Parse(txtID.Text);
+                idAdminSeleccionado = Convert.ToInt32(fila.Cells["IDAdministrador"].Value);
+                txtID.Enabled = false;
             }
         }
 
         private void btnMenu_Click(object sender, EventArgs e) { RegresarAlMenu(); }
         private void FormAdministradores_FormClosed(object sender, FormClosedEventArgs e) { RegresarAlMenu(); }
-
         private void RegresarAlMenu()
         {
             Form principal = Application.OpenForms["FormPrincipal"];

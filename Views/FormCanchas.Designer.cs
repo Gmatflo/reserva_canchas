@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
@@ -57,7 +58,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.dgvCanchas = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCanchas)).BeginInit();
@@ -74,6 +74,17 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(770, 82);
             this.panel2.TabIndex = 10;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(703, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(57, 17);
+            this.label1.TabIndex = 37;
+            this.label1.Text = "↵Menú\r\n";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Click += new System.EventHandler(this.btnMenu_Click);
             // 
             // label9
             // 
@@ -232,6 +243,11 @@
             // cmbDeporte
             // 
             this.cmbDeporte.FormattingEnabled = true;
+            this.cmbDeporte.Items.AddRange(new object[] {
+            "Futbol",
+            "Basketball",
+            "Voley",
+            "Tennis"});
             this.cmbDeporte.Location = new System.Drawing.Point(483, 87);
             this.cmbDeporte.Margin = new System.Windows.Forms.Padding(2);
             this.cmbDeporte.Name = "cmbDeporte";
@@ -262,6 +278,10 @@
             // cmbEstado
             // 
             this.cmbEstado.FormattingEnabled = true;
+            this.cmbEstado.Items.AddRange(new object[] {
+            "En Mantenimiento",
+            "Disponible",
+            "Cerrado"});
             this.cmbEstado.Location = new System.Drawing.Point(118, 110);
             this.cmbEstado.Margin = new System.Windows.Forms.Padding(2);
             this.cmbEstado.Name = "cmbEstado";
@@ -378,7 +398,7 @@
             this.button2.Location = new System.Drawing.Point(187, 325);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(87, 32);
+            this.button2.Size = new System.Drawing.Size(110, 32);
             this.button2.TabIndex = 34;
             this.button2.Text = "Modificar";
             this.button2.UseVisualStyleBackColor = false;
@@ -391,7 +411,7 @@
             this.button1.Location = new System.Drawing.Point(70, 325);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(87, 32);
+            this.button1.Size = new System.Drawing.Size(110, 32);
             this.button1.TabIndex = 33;
             this.button1.Text = "+ Registrar";
             this.button1.UseVisualStyleBackColor = false;
@@ -408,18 +428,7 @@
             this.dgvCanchas.Size = new System.Drawing.Size(654, 207);
             this.dgvCanchas.TabIndex = 36;
             // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(703, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 17);
-            this.label1.TabIndex = 37;
-            this.label1.Text = "↵Menú\r\n";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.Click += new System.EventHandler(this.btnMenu_Click);
-            // 
-            // FormGestiondeCanchas
+            // FormCanchas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -431,7 +440,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.panel2);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "FormGestiondeCanchas";
+            this.Name = "FormCanchas";
             this.Text = "FormGestiondeCanchas";
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
