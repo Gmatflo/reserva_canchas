@@ -27,6 +27,7 @@ namespace reserva_canchas.forms
             this.adminController = pAdminController;
         }
 
+
         private void FormAdministradores_Load(object sender, EventArgs e)
         {
             // Bloqueamos los campos de auditoría para que el usuario no pueda editarlos

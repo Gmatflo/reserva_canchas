@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MultiSport_Manager.Controllers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,11 +13,16 @@ namespace reserva_canchas.forms
 {
     public partial class FormReportes : Form
     {
+        private ReporteController reporteController;
+
         public FormReportes()
         {
             InitializeComponent();
         }
 
-
+        public FormReportes(ReporteController reporteController)
+        {
+            this.reporteController = reporteController;
+        }
     }
 }

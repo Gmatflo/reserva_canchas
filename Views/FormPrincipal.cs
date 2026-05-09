@@ -1,5 +1,7 @@
-﻿using reserva_canchas;
+﻿using MultiSport_Manager.Controllers;
+using reserva_canchas;
 using reserva_canchas.forms;
+using MultiSport_Manager.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +16,13 @@ namespace MultiSport_Manager.Views
 {
     public partial class FormPrincipal : Form
     {
+        public PagoController pagoController = new PagoController();
+        public ReservaController reservaController = new ReservaController();
+        public AdministradorController adminController = new AdministradorController();
+        public ClienteController clienteController = new ClienteController();
+        public CanchaController canchaController = new CanchaController();
+        public NotificacionController notificacionController = new NotificacionController();
+        public ReporteController reporteController = new ReporteController();
         public FormPrincipal()
         {
             InitializeComponent();
@@ -22,7 +31,7 @@ namespace MultiSport_Manager.Views
         private void lblAdministradores_Click(object sender, EventArgs e)
         {
             // 1. Instanciamos el formulario al que queremos ir
-            FormAdministradores formAdmin = new FormAdministradores();
+            FormAdministradores formAdmin = new FormAdministradores(this.adminController);
 
             // 2. Mostramos el nuevo formulario
             formAdmin.Show();
@@ -33,42 +42,42 @@ namespace MultiSport_Manager.Views
 
         private void lblClientes_Click(object sender, EventArgs e)
         {
-            FormClientes formClientes = new FormClientes();
+            FormClientes formClientes = new FormClientes(this.clienteController);
             formClientes.Show();
             this.Hide();
         }
 
         private void lblCanchas_Click(object sender, EventArgs e)
         {
-            FormCanchas formCanchas = new FormCanchas();
+            FormCanchas formCanchas = new FormCanchas(this.canchaController);
             formCanchas.Show();
             this.Hide();
         }
 
         private void lblPagos_Click(object sender, EventArgs e)
         {
-            FormPago formPago = new FormPago();
+            FormPago formPago = new FormPago(this.pagoController);
             formPago.Show();
             this.Hide();
         }
 
         private void lblReservas_Click(object sender, EventArgs e)
         {
-            FormReservas formReservas = new FormReservas();
+            FormGestionReservas formReservas = new FormGestionReservas(this.reservaController);
             formReservas.Show();
             this.Hide();
         }
         
         private void lblReportes_Click(object sender, EventArgs e)
         {
-            FormReportes formReportes = new FormReportes();
+            FormReportes formReportes = new FormReportes(this.reporteController);
             formReportes.Show();
             this.Hide();
         }
 
         private void lblNotificaciones_Click(object sender, EventArgs e) 
         { 
-            FormNotificaciones formNotificaciones=new FormNotificaciones();
+            FormNotificaciones formNotificaciones=new FormNotificaciones(this.notificacionController);
             formNotificaciones.Show();
             this.Hide();
         }

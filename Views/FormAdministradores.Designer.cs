@@ -31,6 +31,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.cmbPermiso = new System.Windows.Forms.ComboBox();
             this.txtContrasena = new System.Windows.Forms.TextBox();
@@ -92,6 +93,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Ivory;
+            this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.label10);
             this.panel2.Location = new System.Drawing.Point(1, 10);
@@ -99,6 +101,17 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(741, 82);
             this.panel2.TabIndex = 45;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(669, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(57, 17);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "↵Menú\r\n";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Click += new System.EventHandler(this.btnMenu_Click);
             // 
             // panel7
             // 
@@ -411,13 +424,14 @@
             // 
             this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(250, 376);
+            this.button3.Location = new System.Drawing.Point(236, 376);
             this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(87, 32);
             this.button3.TabIndex = 52;
             this.button3.Text = "Eliminar";
             this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // button2
             // 
@@ -430,6 +444,7 @@
             this.button2.TabIndex = 51;
             this.button2.Text = "Modificar";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // button1
             // 
@@ -442,6 +457,7 @@
             this.button1.TabIndex = 50;
             this.button1.Text = "+ Registrar";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // dgvAdministradores
             // 
@@ -512,5 +528,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridView dgvAdministradores;
+        private System.Windows.Forms.Label label1;
     }
 }
