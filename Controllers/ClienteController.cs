@@ -18,15 +18,30 @@ namespace MultiSport_Manager.Controllers
 
         public Cliente BuscarCliente(string pDNI)
         {
-            return clientes.FirstOrDefault(c => c.DNI == pDNI);
+            return clientes.Find(c => c.DNI.Equals(pDNI));
+        }
+
+        private bool Existe(int pIdCliente)
+        {
+            return clientes.Exists(c => c.IDCliente == pIdCliente);
+        }
+
+        private bool ExisteDNI(string pDNI)
+        {
+            return clientes.Exists(c => c.DNI.Equals(pDNI));
         }
 
         public bool RegistrarCliente(Cliente pCliente)
         {
-            if (clientes.Any(c => c.DNI == pCliente.DNI)) return false;
-
-            clientes.Add(pCliente);
-            return true;
+            if (Existe(pCliente.IDCliente) || ExisteDNI(pCliente.DNI))
+            {
+                return false;
+            }
+            else
+            {
+                clientes.Add(pCliente);
+                return true;
+            }
         }
 
         public bool EditarCliente(Cliente pCliente)

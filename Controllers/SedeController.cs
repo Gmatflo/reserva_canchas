@@ -11,18 +11,32 @@ namespace MultiSport_Manager.Controllers
     {
         private List<Sede> sedes = new List<Sede>();
 
-        public List<Sede> ListarTodo() { return sedes; }
+        public List<Sede> ListarTodo()
+        {
+            return sedes;
+        }
 
         public Sede BuscarSede(int pIdSede)
         {
-            return sedes.FirstOrDefault(s => s.IDSede == pIdSede);
+            return sedes.Find(s => s.IDSede == pIdSede);
+        }
+
+        private bool Existe(int pIdSede)
+        {
+            return sedes.Exists(s => s.IDSede == pIdSede);
         }
 
         public bool RegistrarSede(Sede pSede)
         {
-            if (sedes.Any(s => s.IDSede == pSede.IDSede)) return false;
-            sedes.Add(pSede);
-            return true;
+            if (Existe(pSede.IDSede))
+            {
+                return false;
+            }
+            else
+            {
+                sedes.Add(pSede);
+                return true;
+            }
         }
 
         public bool EditarSede(Sede pSede)

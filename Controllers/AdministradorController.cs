@@ -11,20 +11,36 @@ namespace MultiSport_Manager.Controllers
     {
         private List<Administrador> administradores = new List<Administrador>();
 
-        public List<Administrador> ListarTodo() { return administradores; }
+        public List<Administrador> ListarTodo()
+        {
+            return administradores;
+        }
 
         public Administrador BuscarAdministrador(string pDNI)
         {
-            return administradores.FirstOrDefault(a => a.DNI == pDNI);
+            return administradores.Find(a => a.DNI.Equals(pDNI));
+        }
+        private bool Existe(int pIdAdmin)
+        {
+            return administradores.Exists(a => a.IDAdministrador == pIdAdmin);
+        }
+
+        private bool ExisteDNI(string pDNI)
+        {
+            return administradores.Exists(a => a.DNI.Equals(pDNI));
         }
 
         public bool RegistrarAdministrador(Administrador pAdmin)
         {
-            if (administradores.Any(a => a.DNI == pAdmin.DNI || a.IDAdministrador == pAdmin.IDAdministrador))
+            if (Existe(pAdmin.IDAdministrador) || ExisteDNI(pAdmin.DNI))
+            {
                 return false;
-
-            administradores.Add(pAdmin);
-            return true;
+            }
+            else
+            {
+                administradores.Add(pAdmin);
+                return true;
+            }
         }
 
         public bool EditarAdministrador(Administrador pAdmin)
