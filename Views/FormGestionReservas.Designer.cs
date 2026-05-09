@@ -437,7 +437,6 @@
             this.button5.TabIndex = 47;
             this.button5.Text = "Registrar Implemento para Reserva";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.btnRegistrarImplemento_Click);
             // 
             // dtpHoraFin
             // 

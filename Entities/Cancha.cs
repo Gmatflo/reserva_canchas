@@ -14,5 +14,10 @@ namespace MultiSport_Manager.Entities
         public string Estado { get; set; }
 
         public Sede Sede { get; set; }
+
+        public override string ToString()
+        {
+            return IDCancha.ToString();
+        }
     }
 }

@@ -268,7 +268,6 @@
             this.button5.TabIndex = 47;
             this.button5.Text = "Registrar Canchas";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.btnRegistrarCanchas_Click);
             // 
             // dtpHoraCierre
             // 
@@ -311,7 +310,6 @@
             this.button4.TabIndex = 28;
             this.button4.Text = "Registrar Implementos";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.btnRegistrarImplementos_Click);
             // 
             // txtIDSede
             // 

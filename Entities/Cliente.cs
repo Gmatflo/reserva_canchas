@@ -20,5 +20,10 @@ namespace MultiSport_Manager.Entities
         {
             Reservas = new List<Reserva>();
         }
+
+        public override string ToString()
+        {
+            return IDCliente.ToString();
+        }
     }
 }

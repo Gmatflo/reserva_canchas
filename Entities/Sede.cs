@@ -22,5 +22,10 @@ namespace MultiSport_Manager.Entities
             Canchas = new List<Cancha>();
             Implementos = new List<Implemento>();
         }
+
+        public override string ToString()
+        {
+            return IDSede.ToString();
+        }
     }
 }

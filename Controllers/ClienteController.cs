@@ -65,5 +65,10 @@ namespace MultiSport_Manager.Controllers
             }
             return false;
         }
+
+        public Cliente BuscarClientePorID(int pIdCliente)
+        {
+            return clientes.Find(c => c.IDCliente == pIdCliente);
+        }
     }
 }

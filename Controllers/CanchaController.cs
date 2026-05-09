@@ -60,5 +60,10 @@ namespace MultiSport_Manager.Controllers
             }
             return false;
         }
+
+        public Cancha BuscarCancha(int pIdCancha)
+        {
+            return canchas.Find(c => c.IDCancha == pIdCancha);
+        }
     }
 }
