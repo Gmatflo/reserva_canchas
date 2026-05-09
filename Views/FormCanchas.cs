@@ -8,13 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace reserva_canchas
+namespace reserva_canchas.forms
 {
-    public partial class FormGestionReservas : Form
+    public partial class FormCanchas : Form
     {
-        public FormGestionReservas()
+        public FormCanchas()
         {
             InitializeComponent();
         }
+
+
     }
 }

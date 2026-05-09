@@ -8,18 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace reserva_canchas.forms
+namespace reserva_canchas
 {
-    public partial class FormAdministradores : Form
+    public partial class FormClientes : Form
     {
-        public FormAdministradores()
+        public FormClientes()
         {
             InitializeComponent();
         }
 
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

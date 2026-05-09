@@ -10,12 +10,11 @@ using System.Windows.Forms;
 
 namespace reserva_canchas
 {
-    public partial class FormSistemadeGestiondeCanchas : Form
+    public partial class FormReservas : Form
     {
-        public FormSistemadeGestiondeCanchas()
+        public FormReservas()
         {
             InitializeComponent();
         }
-
     }
 }

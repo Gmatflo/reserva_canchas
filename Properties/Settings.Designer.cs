@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace reserva_canchas.Properties
+namespace MultiSport_Manager.Properties
 {
 
 

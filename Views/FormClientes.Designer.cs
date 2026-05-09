@@ -1,6 +1,6 @@
 ﻿namespace reserva_canchas
 {
-    partial class FormSistemadeGestiondeCanchas
+    partial class FormClientes
     {
         /// <summary>
         /// Required designer variable.
