@@ -11,10 +11,7 @@ namespace MultiSport_Manager.Controllers
     {
         private List<Sede> sedes = new List<Sede>();
 
-        public List<Sede> ListarTodo()
-        {
-            return sedes;
-        }
+        public List<Sede> ListarTodo() { return sedes; }
 
         public Sede BuscarSede(int pIdSede)
         {
@@ -24,7 +21,6 @@ namespace MultiSport_Manager.Controllers
         public bool RegistrarSede(Sede pSede)
         {
             if (sedes.Any(s => s.IDSede == pSede.IDSede)) return false;
-
             sedes.Add(pSede);
             return true;
         }

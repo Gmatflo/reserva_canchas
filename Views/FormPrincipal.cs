@@ -23,6 +23,7 @@ namespace MultiSport_Manager.Views
         public CanchaController canchaController = new CanchaController();
         public NotificacionController notificacionController = new NotificacionController();
         public ReporteController reporteController = new ReporteController();
+        public SedeController sedeController = new SedeController();
         public FormPrincipal()
         {
             InitializeComponent();
@@ -79,6 +80,13 @@ namespace MultiSport_Manager.Views
         { 
             FormNotificaciones formNotificaciones=new FormNotificaciones(this.notificacionController);
             formNotificaciones.Show();
+            this.Hide();
+        }
+
+        private void lblSedes_Click(object sender, EventArgs e)
+        {
+            FormSede formSede = new FormSede(this.sedeController);
+            formSede.Show();
             this.Hide();
         }
     }

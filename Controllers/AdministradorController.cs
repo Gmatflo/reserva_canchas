@@ -11,10 +11,7 @@ namespace MultiSport_Manager.Controllers
     {
         private List<Administrador> administradores = new List<Administrador>();
 
-        public List<Administrador> ListarTodo()
-        {
-            return administradores;
-        }
+        public List<Administrador> ListarTodo() { return administradores; }
 
         public Administrador BuscarAdministrador(string pDNI)
         {
@@ -23,7 +20,8 @@ namespace MultiSport_Manager.Controllers
 
         public bool RegistrarAdministrador(Administrador pAdmin)
         {
-            if (administradores.Any(a => a.DNI == pAdmin.DNI)) return false;
+            if (administradores.Any(a => a.DNI == pAdmin.DNI || a.IDAdministrador == pAdmin.IDAdministrador))
+                return false;
 
             administradores.Add(pAdmin);
             return true;
