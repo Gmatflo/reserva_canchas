@@ -33,6 +33,15 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.dtpFechaCreacion = new System.Windows.Forms.DateTimePicker();
+            this.txtModificadoPor = new System.Windows.Forms.TextBox();
+            this.txtCreadoPor = new System.Windows.Forms.TextBox();
+            this.dtpFechaModificacion = new System.Windows.Forms.DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.button5 = new System.Windows.Forms.Button();
             this.dtpHoraCierre = new System.Windows.Forms.DateTimePicker();
@@ -48,20 +57,11 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.dgvUbigeos = new System.Windows.Forms.DataGridView();
             this.label9 = new System.Windows.Forms.Label();
-            this.dtpFechaCreacion = new System.Windows.Forms.DateTimePicker();
-            this.txtModificadoPor = new System.Windows.Forms.TextBox();
-            this.txtCreadoPor = new System.Windows.Forms.TextBox();
-            this.dtpFechaModificacion = new System.Windows.Forms.DateTimePicker();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSedes)).BeginInit();
             this.panel7.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -149,6 +149,107 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(806, 258);
             this.panel7.TabIndex = 17;
+            // 
+            // dtpFechaCreacion
+            // 
+            this.dtpFechaCreacion.Enabled = false;
+            this.dtpFechaCreacion.Location = new System.Drawing.Point(146, 207);
+            this.dtpFechaCreacion.Margin = new System.Windows.Forms.Padding(2);
+            this.dtpFechaCreacion.Name = "dtpFechaCreacion";
+            this.dtpFechaCreacion.Size = new System.Drawing.Size(151, 20);
+            this.dtpFechaCreacion.TabIndex = 57;
+            // 
+            // txtModificadoPor
+            // 
+            this.txtModificadoPor.Location = new System.Drawing.Point(328, 207);
+            this.txtModificadoPor.Margin = new System.Windows.Forms.Padding(2);
+            this.txtModificadoPor.Name = "txtModificadoPor";
+            this.txtModificadoPor.ReadOnly = true;
+            this.txtModificadoPor.Size = new System.Drawing.Size(104, 20);
+            this.txtModificadoPor.TabIndex = 56;
+            // 
+            // txtCreadoPor
+            // 
+            this.txtCreadoPor.Location = new System.Drawing.Point(12, 206);
+            this.txtCreadoPor.Margin = new System.Windows.Forms.Padding(2);
+            this.txtCreadoPor.Name = "txtCreadoPor";
+            this.txtCreadoPor.ReadOnly = true;
+            this.txtCreadoPor.Size = new System.Drawing.Size(104, 20);
+            this.txtCreadoPor.TabIndex = 55;
+            // 
+            // dtpFechaModificacion
+            // 
+            this.dtpFechaModificacion.Enabled = false;
+            this.dtpFechaModificacion.Location = new System.Drawing.Point(467, 206);
+            this.dtpFechaModificacion.Margin = new System.Windows.Forms.Padding(2);
+            this.dtpFechaModificacion.Name = "dtpFechaModificacion";
+            this.dtpFechaModificacion.Size = new System.Drawing.Size(151, 20);
+            this.dtpFechaModificacion.TabIndex = 54;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label1.Location = new System.Drawing.Point(464, 181);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(132, 15);
+            this.label1.TabIndex = 53;
+            this.label1.Text = "Fecha Modificacion";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label17.Location = new System.Drawing.Point(333, 181);
+            this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(103, 15);
+            this.label17.TabIndex = 52;
+            this.label17.Text = "Modificado por";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label16.Location = new System.Drawing.Point(148, 181);
+            this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(105, 15);
+            this.label16.TabIndex = 51;
+            this.label16.Text = "Fecha creación";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label15.Location = new System.Drawing.Point(17, 181);
+            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(76, 15);
+            this.label15.TabIndex = 50;
+            this.label15.Text = "creado por";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label12.Location = new System.Drawing.Point(15, 154);
+            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(81, 20);
+            this.label12.TabIndex = 49;
+            this.label12.Text = "Auditoria";
             // 
             // txtNombre
             // 
@@ -319,6 +420,17 @@
             this.panel2.Size = new System.Drawing.Size(1112, 89);
             this.panel2.TabIndex = 12;
             // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(1052, 7);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 17);
+            this.label2.TabIndex = 25;
+            this.label2.Text = "↵Menú\r\n";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.Click += new System.EventHandler(this.btnMenu_Click);
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -364,118 +476,6 @@
             this.label9.Size = new System.Drawing.Size(209, 25);
             this.label9.TabIndex = 24;
             this.label9.Text = "Ubigeos Disponibles";
-            // 
-            // dtpFechaCreacion
-            // 
-            this.dtpFechaCreacion.Enabled = false;
-            this.dtpFechaCreacion.Location = new System.Drawing.Point(146, 207);
-            this.dtpFechaCreacion.Margin = new System.Windows.Forms.Padding(2);
-            this.dtpFechaCreacion.Name = "dtpFechaCreacion";
-            this.dtpFechaCreacion.Size = new System.Drawing.Size(151, 20);
-            this.dtpFechaCreacion.TabIndex = 57;
-            // 
-            // txtModificadoPor
-            // 
-            this.txtModificadoPor.Location = new System.Drawing.Point(328, 207);
-            this.txtModificadoPor.Margin = new System.Windows.Forms.Padding(2);
-            this.txtModificadoPor.Name = "txtModificadoPor";
-            this.txtModificadoPor.ReadOnly = true;
-            this.txtModificadoPor.Size = new System.Drawing.Size(104, 20);
-            this.txtModificadoPor.TabIndex = 56;
-            // 
-            // txtCreadoPor
-            // 
-            this.txtCreadoPor.Location = new System.Drawing.Point(12, 206);
-            this.txtCreadoPor.Margin = new System.Windows.Forms.Padding(2);
-            this.txtCreadoPor.Name = "txtCreadoPor";
-            this.txtCreadoPor.ReadOnly = true;
-            this.txtCreadoPor.Size = new System.Drawing.Size(104, 20);
-            this.txtCreadoPor.TabIndex = 55;
-            // 
-            // dtpFechaModificacion
-            // 
-            this.dtpFechaModificacion.Enabled = false;
-            this.dtpFechaModificacion.Location = new System.Drawing.Point(467, 206);
-            this.dtpFechaModificacion.Margin = new System.Windows.Forms.Padding(2);
-            this.dtpFechaModificacion.Name = "dtpFechaModificacion";
-            this.dtpFechaModificacion.Size = new System.Drawing.Size(151, 20);
-            this.dtpFechaModificacion.TabIndex = 54;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(464, 181);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(132, 15);
-            this.label1.TabIndex = 53;
-            this.label1.Text = "Fecha Modificacion";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label17.Location = new System.Drawing.Point(333, 181);
-            this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(103, 15);
-            this.label17.TabIndex = 52;
-            this.label17.Text = "Modificado por";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label16.Location = new System.Drawing.Point(148, 181);
-            this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(105, 15);
-            this.label16.TabIndex = 51;
-            this.label16.Text = "Fecha creación";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label15.Location = new System.Drawing.Point(17, 181);
-            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(76, 15);
-            this.label15.TabIndex = 50;
-            this.label15.Text = "creado por";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label12.Location = new System.Drawing.Point(15, 154);
-            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(81, 20);
-            this.label12.TabIndex = 49;
-            this.label12.Text = "Auditoria";
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(1052, 7);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 17);
-            this.label2.TabIndex = 25;
-            this.label2.Text = "↵Menú\r\n";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label2.Click += new System.EventHandler(this.btnMenu_Click);
             // 
             // FormSede
             // 

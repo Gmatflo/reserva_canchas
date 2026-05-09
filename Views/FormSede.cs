@@ -22,6 +22,10 @@ namespace reserva_canchas.forms
         {
             InitializeComponent();
             this.sedeController = pSedeController;
+
+            this.Load += FormSede_Load;            
+            this.dgvUbigeos.CellClick += dgvUbigeos_CellClick;
+            this.dgvSedes.CellClick += dgvSedes_CellClick;
         }
 
         private void FormSede_Load(object sender, EventArgs e)
@@ -59,12 +63,14 @@ namespace reserva_canchas.forms
                 new Ubigeo { IDUbigeo = 3, Departamento = "Lima", Provincia = "Lima", Distrito = "Los Olivos" }
             };
 
+            dgvUbigeos.DataSource = null;
             dgvUbigeos.DataSource = listaUbigeos;
 
             // Ocultamos la auditoría en esta grilla lateral para que se vea limpio
             if (dgvUbigeos.Columns["CreadoPor"] != null) dgvUbigeos.Columns["CreadoPor"].Visible = false;
             if (dgvUbigeos.Columns["ModificadoPor"] != null) dgvUbigeos.Columns["ModificadoPor"].Visible = false;
             if (dgvUbigeos.Columns["FechaCreacion"] != null) dgvUbigeos.Columns["FechaCreacion"].Visible = false;
+            if (dgvUbigeos.Columns["FechaModificacion"] != null) dgvUbigeos.Columns["FechaModificacion"].Visible = false;
             if (dgvUbigeos.Columns["FechaModificacion"] != null) dgvUbigeos.Columns["FechaModificacion"].Visible = false;
         }
 

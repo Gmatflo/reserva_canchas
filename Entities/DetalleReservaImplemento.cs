@@ -8,7 +8,6 @@ namespace MultiSport_Manager.Entities
 {
     public class DetalleReservaImplemento : EntidadAuditable
     {
-        // Relaciones principales
         public Reserva Reserva { get; set; }
         public Implemento Implemento { get; set; }
 
