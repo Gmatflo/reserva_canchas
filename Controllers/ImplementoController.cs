@@ -11,17 +11,32 @@ namespace MultiSport_Manager.Controllers
     {
         private List<Implemento> implementos = new List<Implemento>();
 
+        public List<Implemento> ListarTodo()
+        {
+            return implementos;
+        }
+
         public List<Implemento> ListarPorSede(int pIdSede)
         {
             return implementos.Where(i => i.Sede != null && i.Sede.IDSede == pIdSede).ToList();
         }
 
+        private bool Existe(int pIdImplemento)
+        {
+            return implementos.Exists(i => i.IDImplemento == pIdImplemento);
+        }
+
         public bool RegistrarImplemento(Implemento pImplemento)
         {
-            if (implementos.Any(i => i.IDImplemento == pImplemento.IDImplemento)) return false;
-
-            implementos.Add(pImplemento);
-            return true;
+            if (Existe(pImplemento.IDImplemento))
+            {
+                return false;
+            }
+            else
+            {
+                implementos.Add(pImplemento);
+                return true;
+            }
         }
 
         public bool EditarImplemento(Implemento pImplemento)
@@ -48,11 +63,9 @@ namespace MultiSport_Manager.Controllers
 
         public bool ValidarStockDisponible(int pIdImplemento, int pCantidadDeseada)
         {
-            var implemento = implementos.FirstOrDefault(i => i.IDImplemento == pIdImplemento);
+            var implemento = implementos.Find(i => i.IDImplemento == pIdImplemento);
             if (implemento != null)
             {
-                // Validación en memoria asumiendo el StockTotal. 
-                // Para una validación avanzada, aquí cruzarías contra las reservas de esa hora.
                 return implemento.StockTotal >= pCantidadDeseada;
             }
             return false;

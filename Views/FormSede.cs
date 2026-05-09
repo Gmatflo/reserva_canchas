@@ -17,45 +17,43 @@ namespace reserva_canchas.forms
         private SedeController sedeController;
         private int idSedeSeleccionada = -1;
 
-        // Recibimos el controlador principal
         public FormSede(SedeController pSedeController)
         {
             InitializeComponent();
             this.sedeController = pSedeController;
 
-            this.Load += FormSede_Load;            
+            this.Load += FormSede_Load;
             this.dgvUbigeos.CellClick += dgvUbigeos_CellClick;
             this.dgvSedes.CellClick += dgvSedes_CellClick;
         }
 
+        private void MostrarSedesEnDataGrid(List<Sede> lista)
+        {
+            dgvSedes.DataSource = null;
+            if (lista.Count > 0)
+            {
+                dgvSedes.DataSource = lista;
+            }
+        }
+
         private void FormSede_Load(object sender, EventArgs e)
         {
-            // 1. Bloqueo de auditoría
             txtCreadoPor.ReadOnly = true;
             txtModificadoPor.ReadOnly = true;
             dtpFechaCreacion.Enabled = false;
             dtpFechaModificacion.Enabled = false;
 
-            // 2. Configurar los DateTimePickers de hora para que solo muestren tiempo
             dtpHoraApertura.Format = DateTimePickerFormat.Time;
             dtpHoraApertura.ShowUpDown = true;
             dtpHoraCierre.Format = DateTimePickerFormat.Time;
             dtpHoraCierre.ShowUpDown = true;
 
-            CargarGrillaSedes();
-            CargarGrillaUbigeos(); // Método para llenar el panel derecho
-        }
-
-        private void CargarGrillaSedes()
-        {
-            dgvSedes.DataSource = null;
-            dgvSedes.DataSource = sedeController.ListarTodo();
+            MostrarSedesEnDataGrid(sedeController.ListarTodo());
+            CargarGrillaUbigeos();
         }
 
         private void CargarGrillaUbigeos()
         {
-            // Como no hicimos un UbigeoController explícito, aquí simulamos una lista 
-            // para que su prototipo funcional de mañana se vea completo en la exposición.
             List<Ubigeo> listaUbigeos = new List<Ubigeo>
             {
                 new Ubigeo { IDUbigeo = 1, Departamento = "Lima", Provincia = "Lima", Distrito = "San Miguel" },
@@ -66,11 +64,9 @@ namespace reserva_canchas.forms
             dgvUbigeos.DataSource = null;
             dgvUbigeos.DataSource = listaUbigeos;
 
-            // Ocultamos la auditoría en esta grilla lateral para que se vea limpio
             if (dgvUbigeos.Columns["CreadoPor"] != null) dgvUbigeos.Columns["CreadoPor"].Visible = false;
             if (dgvUbigeos.Columns["ModificadoPor"] != null) dgvUbigeos.Columns["ModificadoPor"].Visible = false;
             if (dgvUbigeos.Columns["FechaCreacion"] != null) dgvUbigeos.Columns["FechaCreacion"].Visible = false;
-            if (dgvUbigeos.Columns["FechaModificacion"] != null) dgvUbigeos.Columns["FechaModificacion"].Visible = false;
             if (dgvUbigeos.Columns["FechaModificacion"] != null) dgvUbigeos.Columns["FechaModificacion"].Visible = false;
         }
 
@@ -81,16 +77,9 @@ namespace reserva_canchas.forms
             txtIDUbigeo.Clear();
             dtpHoraApertura.Value = DateTime.Now;
             dtpHoraCierre.Value = DateTime.Now;
-
-            txtCreadoPor.Clear();
-            txtModificadoPor.Clear();
-            dtpFechaCreacion.Value = DateTime.Now;
-            dtpFechaModificacion.Value = DateTime.Now;
-
             idSedeSeleccionada = -1;
         }
 
-        // Evento para que al hacer clic en un Ubigeo de la derecha, se llene el TextBox automáticamente
         private void dgvUbigeos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -100,50 +89,48 @@ namespace reserva_canchas.forms
             }
         }
 
-        // Botón Verde (+) -> REGISTRAR
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
+            if (txtIDSede.Text == "" || txtNombre.Text == "" || txtIDUbigeo.Text == "")
+            {
+                MessageBox.Show("Complete todos los campos obligatorios.");
+                return;
+            }
+
             try
             {
                 Sede nuevaSede = new Sede();
                 nuevaSede.IDSede = int.Parse(txtIDSede.Text);
                 nuevaSede.Nombre = txtNombre.Text;
-
-                // Extraemos solo la porción del tiempo (TimeSpan)
                 nuevaSede.HoraApertura = dtpHoraApertura.Value.TimeOfDay;
                 nuevaSede.HoraCierre = dtpHoraCierre.Value.TimeOfDay;
-
                 nuevaSede.Ubigeo = new Ubigeo { IDUbigeo = int.Parse(txtIDUbigeo.Text) };
 
-                // Auditoría invisible
-                nuevaSede.FechaCreacion = DateTime.Now;
-                nuevaSede.FechaModificacion = DateTime.Now;
                 nuevaSede.CreadoPor = 1;
                 nuevaSede.ModificadoPor = 1;
 
                 if (sedeController.RegistrarSede(nuevaSede))
                 {
-                    MessageBox.Show("Sede registrada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CargarGrillaSedes();
+                    MessageBox.Show("Sede registrada correctamente.");
+                    MostrarSedesEnDataGrid(sedeController.ListarTodo());
                     LimpiarCampos();
                 }
                 else
                 {
-                    MessageBox.Show("El ID de Sede ya existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("El ID de Sede ya existe en el sistema.");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Verifique los datos ingresados. Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error: Verifique que los campos ID sean números enteros.");
             }
         }
 
-        // Botón Azul -> MODIFICAR
         private void btnModificar_Click(object sender, EventArgs e)
         {
             if (idSedeSeleccionada == -1)
             {
-                MessageBox.Show("Seleccione una sede de la lista.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Seleccione una sede de la tabla.");
                 return;
             }
 
@@ -158,42 +145,35 @@ namespace reserva_canchas.forms
 
                 sedeModificada.FechaCreacion = dtpFechaCreacion.Value;
                 sedeModificada.CreadoPor = string.IsNullOrEmpty(txtCreadoPor.Text) ? 1 : int.Parse(txtCreadoPor.Text);
-                sedeModificada.FechaModificacion = DateTime.Now;
                 sedeModificada.ModificadoPor = 1;
 
                 if (sedeController.EditarSede(sedeModificada))
                 {
-                    MessageBox.Show("Sede modificada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CargarGrillaSedes();
+                    MessageBox.Show("Sede modificada correctamente.");
+                    MostrarSedesEnDataGrid(sedeController.ListarTodo());
                     LimpiarCampos();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Error al modificar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error numérico al intentar modificar la sede.");
             }
         }
 
-        // Botón Rojo -> ELIMINAR
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (idSedeSeleccionada != -1)
             {
-                DialogResult dialogResult = MessageBox.Show("¿Está seguro de eliminar esta sede?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult dialogResult = MessageBox.Show("¿Está seguro de eliminar esta sede?", "Confirmar", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
                     sedeController.EliminarSede(idSedeSeleccionada);
-                    CargarGrillaSedes();
+                    MostrarSedesEnDataGrid(sedeController.ListarTodo());
                     LimpiarCampos();
                 }
             }
-            else
-            {
-                MessageBox.Show("Seleccione una sede de la lista.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
         }
 
-        // Evento CellClick de la grilla principal de Sedes
         private void dgvSedes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -203,12 +183,8 @@ namespace reserva_canchas.forms
                 txtIDSede.Text = fila.Cells["IDSede"].Value.ToString();
                 txtNombre.Text = fila.Cells["Nombre"].Value.ToString();
 
-                // Convertir TimeSpan devuelta a DateTime para el DateTimePicker
-                TimeSpan apertura = (TimeSpan)fila.Cells["HoraApertura"].Value;
-                dtpHoraApertura.Value = DateTime.Today.Add(apertura);
-
-                TimeSpan cierre = (TimeSpan)fila.Cells["HoraCierre"].Value;
-                dtpHoraCierre.Value = DateTime.Today.Add(cierre);
+                dtpHoraApertura.Value = DateTime.Today.Add((TimeSpan)fila.Cells["HoraApertura"].Value);
+                dtpHoraCierre.Value = DateTime.Today.Add((TimeSpan)fila.Cells["HoraCierre"].Value);
 
                 if (fila.Cells["Ubigeo"].Value != null)
                 {
@@ -216,45 +192,16 @@ namespace reserva_canchas.forms
                     txtIDUbigeo.Text = ubigeoAsociado.IDUbigeo.ToString();
                 }
 
-                // Auditoría
-                txtCreadoPor.Text = fila.Cells["CreadoPor"].Value.ToString();
-                dtpFechaCreacion.Value = Convert.ToDateTime(fila.Cells["FechaCreacion"].Value);
-                txtModificadoPor.Text = fila.Cells["ModificadoPor"].Value.ToString();
-                dtpFechaModificacion.Value = Convert.ToDateTime(fila.Cells["FechaModificacion"].Value);
-
                 idSedeSeleccionada = int.Parse(txtIDSede.Text);
             }
         }
 
-        // Botones de acceso directo (Opcional según tu flujo)
-        private void btnRegistrarImplementos_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Aquí abrirías tu Formulario de Implementos", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void btnRegistrarCanchas_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Aquí abrirías tu Formulario de Canchas", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        // Navegación para regresar al menú
-        private void btnMenu_Click(object sender, EventArgs e)
-        {
-            RegresarAlMenu();
-        }
-
-        private void FormSede_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            RegresarAlMenu();
-        }
-
+        private void btnMenu_Click(object sender, EventArgs e) { RegresarAlMenu(); }
+        private void FormSede_FormClosed(object sender, FormClosedEventArgs e) { RegresarAlMenu(); }
         private void RegresarAlMenu()
         {
             Form principal = Application.OpenForms["FormPrincipal"];
-            if (principal != null)
-            {
-                principal.Show();
-            }
+            if (principal != null) principal.Show();
             this.Hide();
         }
     }

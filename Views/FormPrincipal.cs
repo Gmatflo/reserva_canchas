@@ -24,6 +24,8 @@ namespace MultiSport_Manager.Views
         public NotificacionController notificacionController = new NotificacionController();
         public ReporteController reporteController = new ReporteController();
         public SedeController sedeController = new SedeController();
+        public ImplementoController implementoController = new ImplementoController();
+
         public FormPrincipal()
         {
             InitializeComponent();
@@ -31,13 +33,8 @@ namespace MultiSport_Manager.Views
 
         private void lblAdministradores_Click(object sender, EventArgs e)
         {
-            // 1. Instanciamos el formulario al que queremos ir
             FormAdministradores formAdmin = new FormAdministradores(this.adminController);
-
-            // 2. Mostramos el nuevo formulario
             formAdmin.Show();
-
-            // 3. Ocultamos el Menú Principal
             this.Hide();
         }
 
@@ -64,11 +61,11 @@ namespace MultiSport_Manager.Views
 
         private void lblReservas_Click(object sender, EventArgs e)
         {
-            FormGestionReservas formReservas = new FormGestionReservas(this.reservaController);
+            FormGestionReservas formReservas = new FormGestionReservas(this.reservaController, this.clienteController, this.canchaController);
             formReservas.Show();
             this.Hide();
         }
-        
+
         private void lblReportes_Click(object sender, EventArgs e)
         {
             FormReportes formReportes = new FormReportes(this.reporteController);
@@ -76,9 +73,9 @@ namespace MultiSport_Manager.Views
             this.Hide();
         }
 
-        private void lblNotificaciones_Click(object sender, EventArgs e) 
-        { 
-            FormNotificaciones formNotificaciones=new FormNotificaciones(this.notificacionController);
+        private void lblNotificaciones_Click(object sender, EventArgs e)
+        {
+            FormNotificaciones formNotificaciones = new FormNotificaciones(this.notificacionController);
             formNotificaciones.Show();
             this.Hide();
         }

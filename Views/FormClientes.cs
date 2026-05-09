@@ -17,33 +17,31 @@ namespace reserva_canchas
         private ClienteController clienteController;
         private int idClienteSeleccionado = -1;
 
-        // El constructor recibe el controlador instanciado en el FormPrincipal
         public FormClientes(ClienteController pClienteController)
         {
             InitializeComponent();
             this.clienteController = pClienteController;
         }
 
+        private void MostrarEnDataGrid(List<Cliente> lista)
+        {
+            dgvClientes.DataSource = null;
+            if (lista.Count > 0)
+            {
+                dgvClientes.DataSource = lista;
+                if (dgvClientes.Columns["Contrasena"] != null) dgvClientes.Columns["Contrasena"].Visible = false;
+                if (dgvClientes.Columns["IDUsuario"] != null) dgvClientes.Columns["IDUsuario"].Visible = false;
+            }
+        }
 
         private void FormClientes_Load(object sender, EventArgs e)
         {
-            // Bloqueamos los campos de auditoría para que el usuario no los edite manualmente
             txtCreadoPor.ReadOnly = true;
             txtModificadoPor.ReadOnly = true;
             dtpFechaCreacion.Enabled = false;
             dtpFechaModificacion.Enabled = false;
 
-            CargarGrilla();
-        }
-
-        private void CargarGrilla()
-        {
-            dgvClientes.DataSource = null;
-            dgvClientes.DataSource = clienteController.ListarTodo();
-
-            // Ocultamos columnas internas que no aportan a la vista rápida del administrador
-            if (dgvClientes.Columns["Contrasena"] != null) dgvClientes.Columns["Contrasena"].Visible = false;
-            if (dgvClientes.Columns["IDUsuario"] != null) dgvClientes.Columns["IDUsuario"].Visible = false;
+            MostrarEnDataGrid(clienteController.ListarTodo());
         }
 
         private void LimpiarCampos()
@@ -54,55 +52,51 @@ namespace reserva_canchas
             txtTelefono.Clear();
             dtpFechaNacimiento.Value = DateTime.Now;
 
-            txtCreadoPor.Clear();
-            txtModificadoPor.Clear();
-            dtpFechaCreacion.Value = DateTime.Now;
-            dtpFechaModificacion.Value = DateTime.Now;
-
             idClienteSeleccionado = -1;
         }
 
-        // Botón Verde (+) -> GUARDAR
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            if (txtIDCliente.Text == "" || txtDNI.Text == "" || txtNombre.Text == "")
+            {
+                MessageBox.Show("Complete todos los campos obligatorios.");
+                return;
+            }
+
             try
             {
                 Cliente nuevoCliente = new Cliente();
                 nuevoCliente.IDCliente = int.Parse(txtIDCliente.Text);
                 nuevoCliente.DNI = txtDNI.Text;
-                nuevoCliente.Nombre = txtNombre.Text; // Este atributo lo hereda de la clase Usuario
+                nuevoCliente.Nombre = txtNombre.Text;
                 nuevoCliente.Telefono = txtTelefono.Text;
                 nuevoCliente.FechaNacimiento = dtpFechaNacimiento.Value;
 
-                // Auditoría invisible automatizada
-                nuevoCliente.FechaCreacion = DateTime.Now;
-                nuevoCliente.FechaModificacion = DateTime.Now;
                 nuevoCliente.CreadoPor = 1;
                 nuevoCliente.ModificadoPor = 1;
 
                 if (clienteController.RegistrarCliente(nuevoCliente))
                 {
-                    MessageBox.Show("Cliente registrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CargarGrilla();
+                    MessageBox.Show("Cliente registrado correctamente.");
+                    MostrarEnDataGrid(clienteController.ListarTodo());
                     LimpiarCampos();
                 }
                 else
                 {
-                    MessageBox.Show("El DNI o ID de Cliente ya existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("El DNI o ID de Cliente ya existe en el sistema.");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Verifique que los datos sean correctos. Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error: Asegúrese de ingresar solo números en el ID.");
             }
         }
 
-        // Botón Azul -> MODIFICAR
         private void btnModificar_Click(object sender, EventArgs e)
         {
             if (idClienteSeleccionado == -1)
             {
-                MessageBox.Show("Seleccione un cliente de la lista.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Seleccione un cliente de la tabla.");
                 return;
             }
 
@@ -115,46 +109,37 @@ namespace reserva_canchas
                 clienteModificado.Telefono = txtTelefono.Text;
                 clienteModificado.FechaNacimiento = dtpFechaNacimiento.Value;
 
-                // Auditoría: Mantenemos la creación, actualizamos la modificación
                 clienteModificado.FechaCreacion = dtpFechaCreacion.Value;
                 clienteModificado.CreadoPor = string.IsNullOrEmpty(txtCreadoPor.Text) ? 1 : int.Parse(txtCreadoPor.Text);
-
-                clienteModificado.FechaModificacion = DateTime.Now;
                 clienteModificado.ModificadoPor = 1;
 
                 if (clienteController.EditarCliente(clienteModificado))
                 {
-                    MessageBox.Show("Cliente modificado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CargarGrilla();
+                    MessageBox.Show("Cliente modificado correctamente.");
+                    MostrarEnDataGrid(clienteController.ListarTodo());
                     LimpiarCampos();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Error al modificar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al modificar. Verifique los datos ingresados.");
             }
         }
 
-        // Botón Rojo -> ELIMINAR
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (idClienteSeleccionado != -1)
             {
-                DialogResult dialogResult = MessageBox.Show("¿Está seguro de eliminar este cliente?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult dialogResult = MessageBox.Show("¿Está seguro de eliminar este cliente?", "Confirmar", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
                     clienteController.EliminarCliente(idClienteSeleccionado);
-                    CargarGrilla();
+                    MostrarEnDataGrid(clienteController.ListarTodo());
                     LimpiarCampos();
                 }
             }
-            else
-            {
-                MessageBox.Show("Seleccione un cliente de la lista.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
         }
 
-        // Evento CellClick del DataGridView
         private void dgvClientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -167,7 +152,6 @@ namespace reserva_canchas
                 txtTelefono.Text = fila.Cells["Telefono"].Value.ToString();
                 dtpFechaNacimiento.Value = Convert.ToDateTime(fila.Cells["FechaNacimiento"].Value);
 
-                // Auditoría
                 txtCreadoPor.Text = fila.Cells["CreadoPor"].Value.ToString();
                 dtpFechaCreacion.Value = Convert.ToDateTime(fila.Cells["FechaCreacion"].Value);
                 txtModificadoPor.Text = fila.Cells["ModificadoPor"].Value.ToString();
@@ -177,24 +161,12 @@ namespace reserva_canchas
             }
         }
 
-        // Navegación para regresar al menú
-        private void btnMenu_Click(object sender, EventArgs e)
-        {
-            RegresarAlMenu();
-        }
-
-        private void FormClientes_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            RegresarAlMenu();
-        }
-
+        private void btnMenu_Click(object sender, EventArgs e) { RegresarAlMenu(); }
+        private void FormClientes_FormClosed(object sender, FormClosedEventArgs e) { RegresarAlMenu(); }
         private void RegresarAlMenu()
         {
             Form principal = Application.OpenForms["FormPrincipal"];
-            if (principal != null)
-            {
-                principal.Show();
-            }
+            if (principal != null) principal.Show();
             this.Hide();
         }
     }

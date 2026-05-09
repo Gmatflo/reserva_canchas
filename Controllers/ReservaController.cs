@@ -9,7 +9,6 @@ namespace MultiSport_Manager.Controllers
 {
     public class ReservaController
     {
-        // Esta lista simula la base de datos temporalmente
         private List<Reserva> reservas = new List<Reserva>();
 
         public List<Reserva> ListarTodo()
@@ -17,15 +16,20 @@ namespace MultiSport_Manager.Controllers
             return reservas;
         }
 
-        public bool ExisteCruceHorario(int pIdCancha, DateTime pFecha, TimeSpan pHoraInicio, TimeSpan pHoraFin)
+        private bool Existe(int pIdReserva)
+        {
+            return reservas.Exists(r => r.IDReserva == pIdReserva);
+        }
+
+        public bool ExisteCruceHorario(int pIdCancha, DateTime pFecha, TimeSpan pHoraInicio, TimeSpan pHoraFin, int pIdReservaIgnorar = -1)
         {
             foreach (var r in reservas)
             {
-                if (r.Cancha.IDCancha == pIdCancha && r.Fecha.Date == pFecha.Date && r.Estado != "Cancelada")
+                if (r.Cancha != null && r.Cancha.IDCancha == pIdCancha && r.Fecha.Date == pFecha.Date && r.Estado != "Cancelada")
                 {
-                    // Lógica para verificar si se solapan las horas
-                    if ((pHoraInicio >= r.HoraInicio && pHoraInicio < r.HoraFin) ||
-                        (pHoraFin > r.HoraInicio && pHoraFin <= r.HoraFin))
+                    if (r.IDReserva == pIdReservaIgnorar) continue;
+
+                    if (pHoraInicio < r.HoraFin && pHoraFin > r.HoraInicio)
                     {
                         return true; // Hay cruce
                     }
@@ -36,22 +40,42 @@ namespace MultiSport_Manager.Controllers
 
         public bool RegistrarReserva(Reserva pReserva)
         {
+            if (Existe(pReserva.IDReserva))
+            {
+                return false; // ID duplicado
+            }
+
             if (ExisteCruceHorario(pReserva.Cancha.IDCancha, pReserva.Fecha, pReserva.HoraInicio, pReserva.HoraFin))
             {
-                return false; // No permite guardar si hay cruce
+                return false; // Cruce de horarios
             }
 
             reservas.Add(pReserva);
             return true;
         }
 
+        public bool EditarReserva(Reserva pReserva)
+        {
+            if (ExisteCruceHorario(pReserva.Cancha.IDCancha, pReserva.Fecha, pReserva.HoraInicio, pReserva.HoraFin, pReserva.IDReserva))
+            {
+                return false;
+            }
+
+            var index = reservas.FindIndex(r => r.IDReserva == pReserva.IDReserva);
+            if (index != -1)
+            {
+                reservas[index] = pReserva;
+                return true;
+            }
+            return false;
+        }
+
         public bool CancelarReserva(int pIdReserva)
         {
             var reserva = reservas.Find(r => r.IDReserva == pIdReserva);
-            if (reserva != null)
+            if (reserva != null && reserva.Estado != "Cancelada")
             {
                 reserva.Estado = "Cancelada";
-                // Aquí podrías agregar la lógica que invoca al ReporteController para la penalidad
                 return true;
             }
             return false;

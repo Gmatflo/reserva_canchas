@@ -11,34 +11,51 @@ namespace MultiSport_Manager.Controllers
     {
         private List<Notificacion> notificaciones = new List<Notificacion>();
 
+        public List<Notificacion> ListarTodo()
+        {
+            return notificaciones;
+        }
+
         public List<Notificacion> ListarPorUsuario(int pIdUsuario)
         {
             return notificaciones.Where(n => n.UsuarioDestino != null && n.UsuarioDestino.IDUsuario == pIdUsuario).ToList();
         }
 
-        public bool GenerarNotificacion(Usuario pUsuario, string pMensaje)
+        private bool Existe(int pIdNotificacion)
         {
-            if (pUsuario == null || string.IsNullOrWhiteSpace(pMensaje)) return false;
-
-            Notificacion nueva = new Notificacion
-            {
-                // Autogenerador básico de ID
-                IDNotificacion = notificaciones.Count > 0 ? notificaciones.Max(n => n.IDNotificacion) + 1 : 1,
-                UsuarioDestino = pUsuario,
-                Mensaje = pMensaje,
-                FechaEnvio = DateTime.Now
-            };
-
-            notificaciones.Add(nueva);
-            return true;
+            return notificaciones.Exists(n => n.IDNotificacion == pIdNotificacion);
         }
 
-        public bool MarcarComoLeida(int pIdNotificacion)
+        public bool RegistrarNotificacion(Notificacion pNotificacion)
         {
-            var notif = notificaciones.FirstOrDefault(n => n.IDNotificacion == pIdNotificacion);
+            if (Existe(pNotificacion.IDNotificacion))
+            {
+                return false;
+            }
+            else
+            {
+                notificaciones.Add(pNotificacion);
+                return true;
+            }
+        }
+
+        public bool EditarNotificacion(Notificacion pNotificacion)
+        {
+            var index = notificaciones.FindIndex(n => n.IDNotificacion == pNotificacion.IDNotificacion);
+            if (index != -1)
+            {
+                notificaciones[index] = pNotificacion;
+                return true;
+            }
+            return false;
+        }
+
+        public bool EliminarNotificacion(int pIdNotificacion)
+        {
+            var notif = notificaciones.Find(n => n.IDNotificacion == pIdNotificacion);
             if (notif != null)
             {
-                // Si agregaron un atributo bool IsLeida en la entidad, lo actualizan aquí
+                notificaciones.Remove(notif);
                 return true;
             }
             return false;

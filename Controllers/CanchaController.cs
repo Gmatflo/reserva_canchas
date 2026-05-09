@@ -11,19 +11,32 @@ namespace MultiSport_Manager.Controllers
     {
         private List<Cancha> canchas = new List<Cancha>();
 
+        public List<Cancha> ListarTodo()
+        {
+            return canchas;
+        }
+
         public List<Cancha> ListarPorSede(int pIdSede)
         {
-            // Filtra las canchas que pertenecen a una sede específica
             return canchas.Where(c => c.Sede != null && c.Sede.IDSede == pIdSede).ToList();
+        }
+
+        private bool Existe(int pIdCancha)
+        {
+            return canchas.Exists(c => c.IDCancha == pIdCancha);
         }
 
         public bool RegistrarCancha(Cancha pCancha)
         {
-            // Valida que no exista una cancha con el mismo ID
-            if (canchas.Any(c => c.IDCancha == pCancha.IDCancha)) return false;
-
-            canchas.Add(pCancha);
-            return true;
+            if (Existe(pCancha.IDCancha))
+            {
+                return false;
+            }
+            else
+            {
+                canchas.Add(pCancha);
+                return true;
+            }
         }
 
         public bool EditarCancha(Cancha pCancha)
@@ -46,6 +59,11 @@ namespace MultiSport_Manager.Controllers
                 return true;
             }
             return false;
+        }
+
+        public Cancha BuscarCancha(int pIdCancha)
+        {
+            return canchas.Find(c => c.IDCancha == pIdCancha);
         }
     }
 }

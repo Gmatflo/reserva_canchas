@@ -11,18 +11,54 @@ namespace MultiSport_Manager.Controllers
     {
         private List<Pago> pagos = new List<Pago>();
 
+        public List<Pago> ListarTodo()
+        {
+            return pagos;
+        }
+
         public List<Pago> ListarPorReserva(int pIdReserva)
         {
             return pagos.Where(p => p.Reserva != null && p.Reserva.IDReserva == pIdReserva).ToList();
         }
 
+        private bool Existe(int pIdPago)
+        {
+            return pagos.Exists(p => p.IDPago == pIdPago);
+        }
+
         public bool RegistrarPago(Pago pPago, int pIdReserva)
         {
-            // Aquí se vincula el pago a la reserva antes de guardarlo
-            if (pPago.MontoPagado <= 0) return false;
+            if (Existe(pPago.IDPago) || pPago.MontoPagado <= 0)
+            {
+                return false;
+            }
+            else
+            {
+                pagos.Add(pPago);
+                return true;
+            }
+        }
 
-            pagos.Add(pPago);
-            return true;
+        public bool EditarPago(Pago pPago)
+        {
+            var index = pagos.FindIndex(p => p.IDPago == pPago.IDPago);
+            if (index != -1)
+            {
+                pagos[index] = pPago;
+                return true;
+            }
+            return false;
+        }
+
+        public bool EliminarPago(int pIdPago)
+        {
+            var pago = pagos.Find(p => p.IDPago == pIdPago);
+            if (pago != null)
+            {
+                pagos.Remove(pago);
+                return true;
+            }
+            return false;
         }
     }
 }
