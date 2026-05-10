@@ -400,7 +400,7 @@
             // 
             // lblRegresarSedes
             // 
-            this.lblRegresarSedes.Font = new System.Drawing.Font("Microsoft Tai Le", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRegresarSedes.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRegresarSedes.Location = new System.Drawing.Point(564, 12);
             this.lblRegresarSedes.Name = "lblRegresarSedes";
             this.lblRegresarSedes.Size = new System.Drawing.Size(194, 28);
