@@ -28,9 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dgvCanchas = new System.Windows.Forms.DataGridView();
-            this.button3 = new System.Windows.Forms.Button();
+            this.dgvImplementos = new System.Windows.Forms.DataGridView();
+            this.btnEliminarImplemento = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblIdSede = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtPrecioAlquiler = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.dtpFechaCreacion = new System.Windows.Forms.DateTimePicker();
             this.txtModificadoPor = new System.Windows.Forms.TextBox();
             this.txtCreadoPor = new System.Windows.Forms.TextBox();
@@ -40,55 +45,56 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.txtIDSede = new System.Windows.Forms.TextBox();
+            this.txtNombreImplemento = new System.Windows.Forms.TextBox();
             this.cmbEstado = new System.Windows.Forms.ComboBox();
-            this.txtIDCancha = new System.Windows.Forms.TextBox();
+            this.txtIDImplemento = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnModificarImplemento = new System.Windows.Forms.Button();
+            this.btnRegistrarImplemento = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblRegresarSedes = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCanchas)).BeginInit();
+            this.txtStockTotal = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvImplementos)).BeginInit();
             this.panel7.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dgvCanchas
+            // dgvImplementos
             // 
-            this.dgvCanchas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCanchas.Location = new System.Drawing.Point(22, 428);
-            this.dgvCanchas.Margin = new System.Windows.Forms.Padding(2);
-            this.dgvCanchas.Name = "dgvCanchas";
-            this.dgvCanchas.RowHeadersWidth = 51;
-            this.dgvCanchas.RowTemplate.Height = 24;
-            this.dgvCanchas.Size = new System.Drawing.Size(770, 207);
-            this.dgvCanchas.TabIndex = 42;
+            this.dgvImplementos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvImplementos.Location = new System.Drawing.Point(22, 428);
+            this.dgvImplementos.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvImplementos.Name = "dgvImplementos";
+            this.dgvImplementos.RowHeadersWidth = 51;
+            this.dgvImplementos.RowTemplate.Height = 24;
+            this.dgvImplementos.Size = new System.Drawing.Size(770, 207);
+            this.dgvImplementos.TabIndex = 42;
             // 
-            // button3
+            // btnEliminarImplemento
             // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(326, 382);
-            this.button3.Margin = new System.Windows.Forms.Padding(2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(94, 32);
-            this.button3.TabIndex = 41;
-            this.button3.Text = "Eliminar";
-            this.button3.UseVisualStyleBackColor = false;
+            this.btnEliminarImplemento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnEliminarImplemento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminarImplemento.Location = new System.Drawing.Point(326, 382);
+            this.btnEliminarImplemento.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEliminarImplemento.Name = "btnEliminarImplemento";
+            this.btnEliminarImplemento.Size = new System.Drawing.Size(94, 32);
+            this.btnEliminarImplemento.TabIndex = 41;
+            this.btnEliminarImplemento.Text = "Eliminar";
+            this.btnEliminarImplemento.UseVisualStyleBackColor = false;
+            this.btnEliminarImplemento.Click += new System.EventHandler(this.btnEliminarImplemento_Click);
             // 
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.panel7.Controls.Add(this.domainUpDown1);
-            this.panel7.Controls.Add(this.textBox1);
+            this.panel7.Controls.Add(this.txtStockTotal);
+            this.panel7.Controls.Add(this.panel1);
+            this.panel7.Controls.Add(this.txtPrecioAlquiler);
             this.panel7.Controls.Add(this.label2);
             this.panel7.Controls.Add(this.dtpFechaCreacion);
             this.panel7.Controls.Add(this.txtModificadoPor);
@@ -99,9 +105,9 @@
             this.panel7.Controls.Add(this.label16);
             this.panel7.Controls.Add(this.label15);
             this.panel7.Controls.Add(this.label7);
-            this.panel7.Controls.Add(this.txtIDSede);
+            this.panel7.Controls.Add(this.txtNombreImplemento);
             this.panel7.Controls.Add(this.cmbEstado);
-            this.panel7.Controls.Add(this.txtIDCancha);
+            this.panel7.Controls.Add(this.txtIDImplemento);
             this.panel7.Controls.Add(this.label24);
             this.panel7.Controls.Add(this.label25);
             this.panel7.Controls.Add(this.label26);
@@ -111,6 +117,59 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(770, 281);
             this.panel7.TabIndex = 38;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.Controls.Add(this.lblIdSede);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Location = new System.Drawing.Point(469, 60);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(240, 100);
+            this.panel1.TabIndex = 57;
+            // 
+            // lblIdSede
+            // 
+            this.lblIdSede.AutoSize = true;
+            this.lblIdSede.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIdSede.Location = new System.Drawing.Point(157, 38);
+            this.lblIdSede.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblIdSede.Name = "lblIdSede";
+            this.lblIdSede.Size = new System.Drawing.Size(24, 31);
+            this.lblIdSede.TabIndex = 39;
+            this.lblIdSede.Text = "-";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(51, 38);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(90, 31);
+            this.label3.TabIndex = 38;
+            this.label3.Text = "Sede:";
+            // 
+            // txtPrecioAlquiler
+            // 
+            this.txtPrecioAlquiler.Location = new System.Drawing.Point(159, 135);
+            this.txtPrecioAlquiler.Margin = new System.Windows.Forms.Padding(2);
+            this.txtPrecioAlquiler.Name = "txtPrecioAlquiler";
+            this.txtPrecioAlquiler.Size = new System.Drawing.Size(186, 20);
+            this.txtPrecioAlquiler.TabIndex = 55;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label2.Location = new System.Drawing.Point(29, 163);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(64, 15);
+            this.label2.TabIndex = 54;
+            this.label2.Text = "- Estado:";
             // 
             // dtpFechaCreacion
             // 
@@ -213,13 +272,13 @@
             this.label7.TabIndex = 34;
             this.label7.Text = "- Precio Alquiler:";
             // 
-            // txtIDSede
+            // txtNombreImplemento
             // 
-            this.txtIDSede.Location = new System.Drawing.Point(159, 85);
-            this.txtIDSede.Margin = new System.Windows.Forms.Padding(2);
-            this.txtIDSede.Name = "txtIDSede";
-            this.txtIDSede.Size = new System.Drawing.Size(186, 20);
-            this.txtIDSede.TabIndex = 33;
+            this.txtNombreImplemento.Location = new System.Drawing.Point(159, 85);
+            this.txtNombreImplemento.Margin = new System.Windows.Forms.Padding(2);
+            this.txtNombreImplemento.Name = "txtNombreImplemento";
+            this.txtNombreImplemento.Size = new System.Drawing.Size(186, 20);
+            this.txtNombreImplemento.TabIndex = 33;
             // 
             // cmbEstado
             // 
@@ -235,13 +294,13 @@
             this.cmbEstado.Size = new System.Drawing.Size(186, 21);
             this.cmbEstado.TabIndex = 32;
             // 
-            // txtIDCancha
+            // txtIDImplemento
             // 
-            this.txtIDCancha.Location = new System.Drawing.Point(159, 60);
-            this.txtIDCancha.Margin = new System.Windows.Forms.Padding(2);
-            this.txtIDCancha.Name = "txtIDCancha";
-            this.txtIDCancha.Size = new System.Drawing.Size(186, 20);
-            this.txtIDCancha.TabIndex = 16;
+            this.txtIDImplemento.Location = new System.Drawing.Point(159, 60);
+            this.txtIDImplemento.Margin = new System.Windows.Forms.Padding(2);
+            this.txtIDImplemento.Name = "txtIDImplemento";
+            this.txtIDImplemento.Size = new System.Drawing.Size(186, 20);
+            this.txtIDImplemento.TabIndex = 16;
             // 
             // label24
             // 
@@ -293,34 +352,36 @@
             this.label30.TabIndex = 6;
             this.label30.Text = "Identificación";
             // 
-            // button2
+            // btnModificarImplemento
             // 
-            this.button2.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(180, 382);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(110, 32);
-            this.button2.TabIndex = 40;
-            this.button2.Text = "Modificar";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnModificarImplemento.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnModificarImplemento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnModificarImplemento.Location = new System.Drawing.Point(180, 382);
+            this.btnModificarImplemento.Margin = new System.Windows.Forms.Padding(2);
+            this.btnModificarImplemento.Name = "btnModificarImplemento";
+            this.btnModificarImplemento.Size = new System.Drawing.Size(110, 32);
+            this.btnModificarImplemento.TabIndex = 40;
+            this.btnModificarImplemento.Text = "Modificar";
+            this.btnModificarImplemento.UseVisualStyleBackColor = false;
+            this.btnModificarImplemento.Click += new System.EventHandler(this.btnModificarImplemento_Click);
             // 
-            // button1
+            // btnRegistrarImplemento
             // 
-            this.button1.BackColor = System.Drawing.Color.PaleGreen;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(40, 382);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 32);
-            this.button1.TabIndex = 39;
-            this.button1.Text = "+ Registrar";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnRegistrarImplemento.BackColor = System.Drawing.Color.PaleGreen;
+            this.btnRegistrarImplemento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRegistrarImplemento.Location = new System.Drawing.Point(40, 382);
+            this.btnRegistrarImplemento.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRegistrarImplemento.Name = "btnRegistrarImplemento";
+            this.btnRegistrarImplemento.Size = new System.Drawing.Size(110, 32);
+            this.btnRegistrarImplemento.TabIndex = 39;
+            this.btnRegistrarImplemento.Text = "+ Registrar";
+            this.btnRegistrarImplemento.UseVisualStyleBackColor = false;
+            this.btnRegistrarImplemento.Click += new System.EventHandler(this.btnRegistrarImplemento_Click);
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Ivory;
-            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.lblRegresarSedes);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.label10);
             this.panel2.Location = new System.Drawing.Point(22, 11);
@@ -329,15 +390,16 @@
             this.panel2.Size = new System.Drawing.Size(770, 82);
             this.panel2.TabIndex = 37;
             // 
-            // label1
+            // lblRegresarSedes
             // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(703, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 17);
-            this.label1.TabIndex = 37;
-            this.label1.Text = "↵Menú\r\n";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblRegresarSedes.Font = new System.Drawing.Font("Microsoft Tai Le", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRegresarSedes.Location = new System.Drawing.Point(564, 12);
+            this.lblRegresarSedes.Name = "lblRegresarSedes";
+            this.lblRegresarSedes.Size = new System.Drawing.Size(194, 28);
+            this.lblRegresarSedes.TabIndex = 37;
+            this.lblRegresarSedes.Text = "↵Regresar a Sedes";
+            this.lblRegresarSedes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblRegresarSedes.Click += new System.EventHandler(this.lblRegresarSedes_Click);
             // 
             // label9
             // 
@@ -362,51 +424,32 @@
             this.label10.TabIndex = 0;
             this.label10.Text = "🏟️Gestion de Implementos";
             // 
-            // label2
+            // txtStockTotal
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label2.Location = new System.Drawing.Point(29, 163);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(64, 15);
-            this.label2.TabIndex = 54;
-            this.label2.Text = "- Estado:";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(159, 135);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(186, 20);
-            this.textBox1.TabIndex = 55;
-            // 
-            // domainUpDown1
-            // 
-            this.domainUpDown1.Location = new System.Drawing.Point(159, 110);
-            this.domainUpDown1.Name = "domainUpDown1";
-            this.domainUpDown1.Size = new System.Drawing.Size(186, 20);
-            this.domainUpDown1.TabIndex = 56;
-            this.domainUpDown1.Text = "0";
+            this.txtStockTotal.Location = new System.Drawing.Point(158, 109);
+            this.txtStockTotal.Margin = new System.Windows.Forms.Padding(2);
+            this.txtStockTotal.Name = "txtStockTotal";
+            this.txtStockTotal.Size = new System.Drawing.Size(186, 20);
+            this.txtStockTotal.TabIndex = 58;
             // 
             // FormImplementos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(820, 724);
-            this.Controls.Add(this.dgvCanchas);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.dgvImplementos);
+            this.Controls.Add(this.btnEliminarImplemento);
             this.Controls.Add(this.panel7);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnModificarImplemento);
+            this.Controls.Add(this.btnRegistrarImplemento);
             this.Controls.Add(this.panel2);
             this.Name = "FormImplementos";
             this.Text = "Implementos";
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCanchas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvImplementos)).EndInit();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
@@ -415,8 +458,8 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dgvCanchas;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.DataGridView dgvImplementos;
+        private System.Windows.Forms.Button btnEliminarImplemento;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.DateTimePicker dtpFechaCreacion;
         private System.Windows.Forms.TextBox txtModificadoPor;
@@ -427,21 +470,24 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtIDSede;
+        private System.Windows.Forms.TextBox txtNombreImplemento;
         private System.Windows.Forms.ComboBox cmbEstado;
-        private System.Windows.Forms.TextBox txtIDCancha;
+        private System.Windows.Forms.TextBox txtIDImplemento;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnModificarImplemento;
+        private System.Windows.Forms.Button btnRegistrarImplemento;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblRegresarSedes;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.DomainUpDown domainUpDown1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtPrecioAlquiler;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblIdSede;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtStockTotal;
     }
 }

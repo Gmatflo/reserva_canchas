@@ -9,7 +9,7 @@ namespace MultiSport_Manager.Controllers
 {
     public class ImplementoController
     {
-        private List<Implemento> implementos = new List<Implemento>();
+        private static List<Implemento> implementos = new List<Implemento>();
 
         public List<Implemento> ListarTodo()
         {

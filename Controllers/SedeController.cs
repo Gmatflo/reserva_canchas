@@ -9,7 +9,7 @@ namespace MultiSport_Manager.Controllers
 {
     public class SedeController
     {
-        private List<Sede> sedes = new List<Sede>();
+        private static List<Sede> sedes = new List<Sede>();
 
         public List<Sede> ListarTodo()
         {
