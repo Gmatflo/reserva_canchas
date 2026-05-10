@@ -43,7 +43,6 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
-            this.button5 = new System.Windows.Forms.Button();
             this.dtpHoraCierre = new System.Windows.Forms.DateTimePicker();
             this.dtpHoraApertura = new System.Windows.Forms.DateTimePicker();
             this.txtIDUbigeo = new System.Windows.Forms.TextBox();
@@ -131,7 +130,6 @@
             this.panel7.Controls.Add(this.label15);
             this.panel7.Controls.Add(this.label12);
             this.panel7.Controls.Add(this.txtNombre);
-            this.panel7.Controls.Add(this.button5);
             this.panel7.Controls.Add(this.dtpHoraCierre);
             this.panel7.Controls.Add(this.dtpHoraApertura);
             this.panel7.Controls.Add(this.txtIDUbigeo);
@@ -259,16 +257,6 @@
             this.txtNombre.Size = new System.Drawing.Size(212, 20);
             this.txtNombre.TabIndex = 48;
             // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(657, 181);
-            this.button5.Margin = new System.Windows.Forms.Padding(2);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(128, 46);
-            this.button5.TabIndex = 47;
-            this.button5.Text = "Registrar Canchas";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
             // dtpHoraCierre
             // 
             this.dtpHoraCierre.CustomFormat = "HH:mm";
@@ -303,13 +291,14 @@
             // 
             // btnRegistrarImplementos
             // 
-            this.btnRegistrarImplementos.Location = new System.Drawing.Point(657, 120);
+            this.btnRegistrarImplementos.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnRegistrarImplementos.Location = new System.Drawing.Point(655, 194);
             this.btnRegistrarImplementos.Margin = new System.Windows.Forms.Padding(2);
             this.btnRegistrarImplementos.Name = "btnRegistrarImplementos";
             this.btnRegistrarImplementos.Size = new System.Drawing.Size(128, 43);
             this.btnRegistrarImplementos.TabIndex = 28;
             this.btnRegistrarImplementos.Text = "Registrar Implementos";
-            this.btnRegistrarImplementos.UseVisualStyleBackColor = true;
+            this.btnRegistrarImplementos.UseVisualStyleBackColor = false;
             this.btnRegistrarImplementos.Click += new System.EventHandler(this.btnRegistrarImplementos_Click);
             // 
             // txtIDSede
@@ -509,7 +498,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.DateTimePicker dtpHoraCierre;
         private System.Windows.Forms.DateTimePicker dtpHoraApertura;
         private System.Windows.Forms.TextBox txtIDUbigeo;

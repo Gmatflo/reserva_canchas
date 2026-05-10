@@ -27,6 +27,7 @@ namespace reserva_canchas
             this.clienteController = pClienteController;
             this.canchaController = pCanchaController;
             this.dgvReservas.SelectionChanged += new System.EventHandler(this.dgvReservas_SelectionChanged);
+            this.VisibleChanged += FormGestionReservas_VisibleChanged;
             MostrarEnDataGrid(reservaController.ListarTodo());
         }
 
@@ -306,6 +307,15 @@ namespace reserva_canchas
             else
             {
                 MessageBox.Show("Seleccione una reserva primero.");
+            }
+        }
+
+        private void FormGestionReservas_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+            {
+                MostrarEnDataGrid(reservaController.ListarTodo());
+                LimpiarCampos();
             }
         }
     }
