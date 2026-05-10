@@ -10,7 +10,6 @@ namespace MultiSport_Manager.Entities
     {
         public Reserva Reserva { get; set; }
         public Implemento Implemento { get; set; }
-
         public double PrecioCongelado { get; set; }
         public int Cantidad { get; set; }
     }

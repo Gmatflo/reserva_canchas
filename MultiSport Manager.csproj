@@ -49,6 +49,7 @@
     <Compile Include="Controllers\AdministradorController.cs" />
     <Compile Include="Controllers\CanchaController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\DetalleReservaImplementoController.cs" />
     <Compile Include="Controllers\ImplementoController.cs" />
     <Compile Include="Controllers\NotificacionController.cs" />
     <Compile Include="Controllers\PagoController.cs" />
