@@ -27,6 +27,13 @@ namespace reserva_canchas.forms
             this.dgvSedes.CellClick += dgvSedes_CellClick;
         }
 
+        private List<Ubigeo> listaUbigeosGlobal = new List<Ubigeo>
+        {
+            new Ubigeo { IDUbigeo = 1, Departamento = "Lima", Provincia = "Lima", Distrito = "San Miguel" },
+            new Ubigeo { IDUbigeo = 2, Departamento = "Lima", Provincia = "Lima", Distrito = "Miraflores" },
+            new Ubigeo { IDUbigeo = 3, Departamento = "Lima", Provincia = "Lima", Distrito = "Los Olivos" }
+        };
+
         private void MostrarSedesEnDataGrid(List<Sede> lista)
         {
             dgvSedes.DataSource = null;
@@ -54,15 +61,8 @@ namespace reserva_canchas.forms
 
         private void CargarGrillaUbigeos()
         {
-            List<Ubigeo> listaUbigeos = new List<Ubigeo>
-            {
-                new Ubigeo { IDUbigeo = 1, Departamento = "Lima", Provincia = "Lima", Distrito = "San Miguel" },
-                new Ubigeo { IDUbigeo = 2, Departamento = "Lima", Provincia = "Lima", Distrito = "Miraflores" },
-                new Ubigeo { IDUbigeo = 3, Departamento = "Lima", Provincia = "Lima", Distrito = "Los Olivos" }
-            };
-
             dgvUbigeos.DataSource = null;
-            dgvUbigeos.DataSource = listaUbigeos;
+            dgvUbigeos.DataSource = listaUbigeosGlobal;
 
             if (dgvUbigeos.Columns["CreadoPor"] != null) dgvUbigeos.Columns["CreadoPor"].Visible = false;
             if (dgvUbigeos.Columns["ModificadoPor"] != null) dgvUbigeos.Columns["ModificadoPor"].Visible = false;
@@ -73,6 +73,7 @@ namespace reserva_canchas.forms
         private void LimpiarCampos()
         {
             txtIDSede.Clear();
+            txtIDSede.Enabled = true;
             txtNombre.Clear();
             txtIDUbigeo.Clear();
             dtpHoraApertura.Value = DateTime.Now;
@@ -99,6 +100,22 @@ namespace reserva_canchas.forms
 
             try
             {
+                int idUbigeo = int.Parse(txtIDUbigeo.Text);
+                TimeSpan apertura = dtpHoraApertura.Value.TimeOfDay;
+                TimeSpan cierre = dtpHoraCierre.Value.TimeOfDay;
+
+                if (!listaUbigeosGlobal.Exists(u => u.IDUbigeo == idUbigeo))
+                {
+                    MessageBox.Show("El ID de Ubigeo no es válido.");
+                    return;
+                }
+
+                if (apertura >= cierre)
+                {
+                    MessageBox.Show("La hora de apertura debe ser menor a la de cierre.");
+                    return;
+                }
+
                 Sede nuevaSede = new Sede();
                 nuevaSede.IDSede = int.Parse(txtIDSede.Text);
                 nuevaSede.Nombre = txtNombre.Text;

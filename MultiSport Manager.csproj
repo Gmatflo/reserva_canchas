@@ -87,6 +87,12 @@
     <Compile Include="Views\FormGestionReservas.Designer.cs">
       <DependentUpon>FormGestionReservas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\FormImplementos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormImplementos.Designer.cs">
+      <DependentUpon>FormImplementos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FormNotificaciones.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FormGestionReservas.resx">
       <DependentUpon>FormGestionReservas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormImplementos.resx">
+      <DependentUpon>FormImplementos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FormNotificaciones.resx">
       <DependentUpon>FormNotificaciones.cs</DependentUpon>
