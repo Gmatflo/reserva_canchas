@@ -41,10 +41,16 @@ namespace MultiSport_Manager.Controllers
 
         public bool EditarSede(Sede pSede)
         {
-            var index = sedes.FindIndex(s => s.IDSede == pSede.IDSede);
-            if (index != -1)
+            var sedeExistente = sedes.Find(s => s.IDSede == pSede.IDSede);
+
+            if (sedeExistente != null)
             {
-                sedes[index] = pSede;
+                sedeExistente.Nombre = pSede.Nombre;
+                sedeExistente.HoraApertura = pSede.HoraApertura;
+                sedeExistente.HoraCierre = pSede.HoraCierre;
+                sedeExistente.Ubigeo = pSede.Ubigeo;
+                sedeExistente.FechaModificacion = pSede.FechaModificacion;
+                sedeExistente.ModificadoPor = pSede.ModificadoPor;
                 return true;
             }
             return false;
