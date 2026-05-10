@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MultiSport_Manager.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,22 +9,51 @@ namespace MultiSport_Manager.Controllers
 {
     public class ReporteController
     {
-        // Los métodos devuelven List<object> para que sean flexibles al llenar gráficos o DataGridViews
-        public List<object> GenerarReportePenalidadCancelacion()
+        public List<object> GenerarReporteIngresosPorSede(List<Pago> todosLosPagos, DateTime pFechaInicio, DateTime pFechaFin)
         {
-            List<object> reporte = new List<object>();
+            // Filtramos pagos completados en el rango de fechas
+            var pagosValidos = todosLosPagos.Where(p =>
+                p.EstadoPago == "Completado" &&
+                p.FechaPago.Date >= pFechaInicio.Date &&
+                p.FechaPago.Date <= pFechaFin.Date &&
+                p.Reserva != null && p.Reserva.Cancha != null && p.Reserva.Cancha.Sede != null).ToList();
 
-            // Aquí irá la lógica que recorre las reservas canceladas y suma los montos retenidos
-            // Ejemplo de objeto anónimo a devolver:
-            // reporte.Add(new { Cliente = "Juan", MontoRetenido = 50.00, Fecha = DateTime.Now });
+            // Agrupamos por nombre de sede y sumamos
+            var reporte = pagosValidos
+                .GroupBy(p => p.Reserva.Cancha.Sede.Nombre)
+                .Select(g => new
+                {
+                    Sede = g.Key,
+                    IngresosTotales = g.Sum(p => p.MontoPagado),
+                    CantidadDePagos = g.Count()
+                })
+                .OrderByDescending(r => r.IngresosTotales)
+                .Cast<object>()
+                .ToList();
 
             return reporte;
         }
 
-        public List<object> GenerarReporteIngresosPorComplejo(DateTime pFechaInicio, DateTime pFechaFin)
+        // REPORTE 2: Reservas por Deporte (Para Gráfico de Barras)
+        public List<object> GenerarReporteReservasPorDeporte(List<Reserva> todasLasReservas)
         {
-            List<object> reporte = new List<object>();
-            // Lógica agrupando pagos por sede
+            // Filtramos reservas que NO estén canceladas
+            var reservasValidas = todasLasReservas.Where(r =>
+                r.Estado != "Cancelada" &&
+                r.Cancha != null).ToList();
+
+            // Agrupamos por deporte
+            var reporte = reservasValidas
+                .GroupBy(r => r.Cancha.Deporte)
+                .Select(g => new
+                {
+                    Deporte = g.Key,
+                    TotalReservas = g.Count()
+                })
+                .OrderByDescending(r => r.TotalReservas)
+                .Cast<object>()
+                .ToList();
+
             return reporte;
         }
     }

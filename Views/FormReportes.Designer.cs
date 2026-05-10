@@ -29,30 +29,33 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.label9 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvReportes = new System.Windows.Forms.DataGridView();
             this.label14 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.dtpFechaFin = new System.Windows.Forms.DateTimePicker();
+            this.dtpFechaInicio = new System.Windows.Forms.DateTimePicker();
+            this.btnGenerarIngresos = new System.Windows.Forms.Button();
+            this.btnGenerarDeportes = new System.Windows.Forms.Button();
+            this.chartReporte = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.btnMenu = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvReportes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartReporte)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Ivory;
+            this.panel2.Controls.Add(this.btnMenu);
             this.panel2.Controls.Add(this.label8);
             this.panel2.Controls.Add(this.label7);
             this.panel2.Location = new System.Drawing.Point(2, -2);
@@ -97,27 +100,18 @@
             this.label9.Text = "Identificación";
             this.label9.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // button4
+            // dgvReportes
             // 
-            this.button4.Location = new System.Drawing.Point(299, 212);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(126, 23);
-            this.button4.TabIndex = 86;
-            this.button4.Text = "Grafico de ";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 298);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(880, 251);
-            this.dataGridView1.TabIndex = 59;
+            this.dgvReportes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvReportes.Location = new System.Drawing.Point(12, 298);
+            this.dgvReportes.Name = "dgvReportes";
+            this.dgvReportes.Size = new System.Drawing.Size(494, 251);
+            this.dgvReportes.TabIndex = 59;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(9, 122);
+            this.label14.Location = new System.Drawing.Point(14, 123);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(65, 13);
             this.label14.TabIndex = 70;
@@ -126,76 +120,87 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(14, 188);
+            this.label18.Location = new System.Drawing.Point(14, 187);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(54, 13);
             this.label18.TabIndex = 74;
             this.label18.Text = "Fecha Fin";
             // 
-            // dateTimePicker2
+            // dtpFechaFin
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(17, 210);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker2.TabIndex = 81;
+            this.dtpFechaFin.Location = new System.Drawing.Point(17, 210);
+            this.dtpFechaFin.Name = "dtpFechaFin";
+            this.dtpFechaFin.Size = new System.Drawing.Size(200, 20);
+            this.dtpFechaFin.TabIndex = 81;
             // 
-            // dateTimePicker3
+            // dtpFechaInicio
             // 
-            this.dateTimePicker3.Location = new System.Drawing.Point(12, 144);
-            this.dateTimePicker3.Name = "dateTimePicker3";
-            this.dateTimePicker3.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker3.TabIndex = 82;
+            this.dtpFechaInicio.Location = new System.Drawing.Point(17, 145);
+            this.dtpFechaInicio.Name = "dtpFechaInicio";
+            this.dtpFechaInicio.Size = new System.Drawing.Size(200, 20);
+            this.dtpFechaInicio.TabIndex = 82;
             // 
-            // button1
+            // btnGenerarIngresos
             // 
-            this.button1.Location = new System.Drawing.Point(299, 113);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(126, 23);
-            this.button1.TabIndex = 83;
-            this.button1.Text = "Ingresos por Complejo";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnGenerarIngresos.Location = new System.Drawing.Point(299, 81);
+            this.btnGenerarIngresos.Name = "btnGenerarIngresos";
+            this.btnGenerarIngresos.Size = new System.Drawing.Size(164, 37);
+            this.btnGenerarIngresos.TabIndex = 83;
+            this.btnGenerarIngresos.Text = "Generar Ingresos por Sede";
+            this.btnGenerarIngresos.UseVisualStyleBackColor = true;
+            this.btnGenerarIngresos.Click += new System.EventHandler(this.btnGenerarIngresos_Click);
             // 
-            // button2
+            // btnGenerarDeportes
             // 
-            this.button2.Location = new System.Drawing.Point(299, 145);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(126, 23);
-            this.button2.TabIndex = 84;
-            this.button2.Text = "Reservas por Periodo";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnGenerarDeportes.Location = new System.Drawing.Point(299, 124);
+            this.btnGenerarDeportes.Name = "btnGenerarDeportes";
+            this.btnGenerarDeportes.Size = new System.Drawing.Size(164, 44);
+            this.btnGenerarDeportes.TabIndex = 84;
+            this.btnGenerarDeportes.Text = "Generar Reservas por Deporte";
+            this.btnGenerarDeportes.UseVisualStyleBackColor = true;
+            this.btnGenerarDeportes.Click += new System.EventHandler(this.btnGenerarDeportes_Click);
             // 
-            // button3
+            // chartReporte
             // 
-            this.button3.Location = new System.Drawing.Point(299, 177);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(126, 23);
-            this.button3.TabIndex = 85;
-            this.button3.Text = "Clientes Frecuentes";
-            this.button3.UseVisualStyleBackColor = true;
+            chartArea1.Name = "ChartArea1";
+            this.chartReporte.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartReporte.Legends.Add(legend1);
+            this.chartReporte.Location = new System.Drawing.Point(556, 100);
+            this.chartReporte.Name = "chartReporte";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartReporte.Series.Add(series1);
+            this.chartReporte.Size = new System.Drawing.Size(300, 300);
+            this.chartReporte.TabIndex = 87;
+            this.chartReporte.Text = "chart1";
             // 
-            // dataGridView2
+            // btnMenu
             // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(517, 80);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(375, 198);
-            this.dataGridView2.TabIndex = 87;
+            this.btnMenu.BackColor = System.Drawing.Color.Ivory;
+            this.btnMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMenu.Location = new System.Drawing.Point(793, 12);
+            this.btnMenu.Name = "btnMenu";
+            this.btnMenu.Size = new System.Drawing.Size(97, 28);
+            this.btnMenu.TabIndex = 88;
+            this.btnMenu.Text = "↵Menú";
+            this.btnMenu.UseVisualStyleBackColor = false;
+            this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
             // 
             // FormReportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 561);
-            this.Controls.Add(this.dataGridView2);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.dateTimePicker3);
-            this.Controls.Add(this.dateTimePicker2);
+            this.Controls.Add(this.chartReporte);
+            this.Controls.Add(this.btnGenerarDeportes);
+            this.Controls.Add(this.btnGenerarIngresos);
+            this.Controls.Add(this.dtpFechaInicio);
+            this.Controls.Add(this.dtpFechaFin);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label14);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvReportes);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.panel2);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -204,8 +209,8 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvReportes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartReporte)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -217,15 +222,14 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.BindingSource bindingSource1;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvReportes;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DateTimePicker dtpFechaFin;
+        private System.Windows.Forms.DateTimePicker dtpFechaInicio;
+        private System.Windows.Forms.Button btnGenerarIngresos;
+        private System.Windows.Forms.Button btnGenerarDeportes;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartReporte;
+        private System.Windows.Forms.Button btnMenu;
     }
 }
