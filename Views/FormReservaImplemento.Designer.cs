@@ -41,6 +41,7 @@
             this.lblRegresarReserva = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.dgvImplementoReserva = new System.Windows.Forms.DataGridView();
+            this.lblIdReserva = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgImplementoSede)).BeginInit();
             this.panel7.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -69,6 +70,7 @@
             this.btnQuitarImplemento.TabIndex = 58;
             this.btnQuitarImplemento.Text = "Quitar Implemento";
             this.btnQuitarImplemento.UseVisualStyleBackColor = false;
+            this.btnQuitarImplemento.Click += new System.EventHandler(this.btnQuitarImplemento_Click);
             // 
             // btnAñadirImplemento
             // 
@@ -81,6 +83,7 @@
             this.btnAñadirImplemento.TabIndex = 56;
             this.btnAñadirImplemento.Text = "Añadir Implemento";
             this.btnAñadirImplemento.UseVisualStyleBackColor = false;
+            this.btnAñadirImplemento.Click += new System.EventHandler(this.btnAñadirImplemento_Click);
             // 
             // panel7
             // 
@@ -173,6 +176,7 @@
             this.lblRegresarReserva.TabIndex = 54;
             this.lblRegresarReserva.Text = "↵Regresar a Reserva";
             this.lblRegresarReserva.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblRegresarReserva.Click += new System.EventHandler(this.lblRegresarReserva_Click);
             // 
             // label10
             // 
@@ -196,11 +200,23 @@
             this.dgvImplementoReserva.Size = new System.Drawing.Size(262, 359);
             this.dgvImplementoReserva.TabIndex = 60;
             // 
+            // lblIdReserva
+            // 
+            this.lblIdReserva.AutoSize = true;
+            this.lblIdReserva.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIdReserva.Location = new System.Drawing.Point(465, 111);
+            this.lblIdReserva.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblIdReserva.Name = "lblIdReserva";
+            this.lblIdReserva.Size = new System.Drawing.Size(20, 25);
+            this.lblIdReserva.TabIndex = 55;
+            this.lblIdReserva.Text = "-";
+            // 
             // FormReservaImplemento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(986, 573);
+            this.Controls.Add(this.lblIdReserva);
             this.Controls.Add(this.dgvImplementoReserva);
             this.Controls.Add(this.dgImplementoSede);
             this.Controls.Add(this.panel7);
@@ -214,6 +230,7 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvImplementoReserva)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -232,5 +249,6 @@
         private System.Windows.Forms.Label lblRegresarReserva;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DataGridView dgvImplementoReserva;
+        private System.Windows.Forms.Label lblIdReserva;
     }
 }

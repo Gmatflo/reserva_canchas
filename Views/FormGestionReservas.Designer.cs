@@ -54,7 +54,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnImplementoReserva = new System.Windows.Forms.Button();
             this.dtpHoraFin = new System.Windows.Forms.DateTimePicker();
             this.dtpHoraInicio = new System.Windows.Forms.DateTimePicker();
             this.txtIDCancha = new System.Windows.Forms.TextBox();
@@ -300,7 +300,7 @@
             this.panel7.Controls.Add(this.label2);
             this.panel7.Controls.Add(this.label3);
             this.panel7.Controls.Add(this.label4);
-            this.panel7.Controls.Add(this.button5);
+            this.panel7.Controls.Add(this.btnImplementoReserva);
             this.panel7.Controls.Add(this.dtpHoraFin);
             this.panel7.Controls.Add(this.dtpHoraInicio);
             this.panel7.Controls.Add(this.txtIDCancha);
@@ -428,15 +428,16 @@
             this.label4.TabIndex = 48;
             this.label4.Text = "Auditoria";
             // 
-            // button5
+            // btnImplementoReserva
             // 
-            this.button5.Location = new System.Drawing.Point(224, 225);
-            this.button5.Margin = new System.Windows.Forms.Padding(2);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(211, 33);
-            this.button5.TabIndex = 47;
-            this.button5.Text = "Registrar Implemento para Reserva";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnImplementoReserva.Location = new System.Drawing.Point(224, 225);
+            this.btnImplementoReserva.Margin = new System.Windows.Forms.Padding(2);
+            this.btnImplementoReserva.Name = "btnImplementoReserva";
+            this.btnImplementoReserva.Size = new System.Drawing.Size(211, 33);
+            this.btnImplementoReserva.TabIndex = 47;
+            this.btnImplementoReserva.Text = "Registrar Implemento para Reserva";
+            this.btnImplementoReserva.UseVisualStyleBackColor = true;
+            this.btnImplementoReserva.Click += new System.EventHandler(this.btnImplementoReserva_Click);
             // 
             // dtpHoraFin
             // 
@@ -790,7 +791,7 @@
         private System.Windows.Forms.DateTimePicker dtpHoraInicio;
         private System.Windows.Forms.TextBox txtIDCancha;
         private System.Windows.Forms.TextBox txtIDCliente;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnImplementoReserva;
         private System.Windows.Forms.DateTimePicker dtpHoraFin;
         private System.Windows.Forms.DateTimePicker dtpFechaCreacion;
         private System.Windows.Forms.TextBox txtModificadoPor;

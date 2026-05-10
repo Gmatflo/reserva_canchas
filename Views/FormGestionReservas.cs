@@ -293,5 +293,20 @@ namespace reserva_canchas
             if (principal != null) principal.Show();
             this.Hide();
         }
+
+        private void btnImplementoReserva_Click(object sender, EventArgs e)
+        {
+            if (idReservaSeleccionada != -1)
+            {
+                // Llamamos al NUEVO nombre del form y le pasamos el controlador correcto
+                FormReservaImplemento form = new FormReservaImplemento(idReservaSeleccionada, this.reservaController);
+                form.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Seleccione una reserva primero.");
+            }
+        }
     }
 }
