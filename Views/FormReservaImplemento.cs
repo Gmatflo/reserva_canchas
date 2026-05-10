@@ -34,7 +34,7 @@ namespace MultiSport_Manager.Views
 
             this.reservaActual = reservaController.ListarTodo().Find(r => r.IDReserva == pIdReserva);
 
-            this.Load += FormReservaImplemento_Load;
+            this.Load += FormReservaImplemento_Load; // Aqui ver esto porque gracias a esto funciona
             this.dgImplementoSede.SelectionChanged += dgImplementoSede_SelectionChanged;
             this.dgvImplementoReserva.SelectionChanged += dgvImplementoReserva_SelectionChanged;
         }
