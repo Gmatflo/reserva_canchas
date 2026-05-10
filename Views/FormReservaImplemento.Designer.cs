@@ -42,6 +42,9 @@
             this.label10 = new System.Windows.Forms.Label();
             this.dgvImplementoReserva = new System.Windows.Forms.DataGridView();
             this.lblIdReserva = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgImplementoSede)).BeginInit();
             this.panel7.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -51,24 +54,24 @@
             // dgImplementoSede
             // 
             this.dgImplementoSede.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgImplementoSede.Location = new System.Drawing.Point(16, 147);
+            this.dgImplementoSede.Location = new System.Drawing.Point(26, 147);
             this.dgImplementoSede.Margin = new System.Windows.Forms.Padding(2);
             this.dgImplementoSede.Name = "dgImplementoSede";
             this.dgImplementoSede.RowHeadersWidth = 51;
             this.dgImplementoSede.RowTemplate.Height = 24;
-            this.dgImplementoSede.Size = new System.Drawing.Size(262, 359);
+            this.dgImplementoSede.Size = new System.Drawing.Size(299, 415);
             this.dgImplementoSede.TabIndex = 59;
             // 
             // btnQuitarImplemento
             // 
             this.btnQuitarImplemento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.btnQuitarImplemento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnQuitarImplemento.Location = new System.Drawing.Point(48, 210);
+            this.btnQuitarImplemento.Location = new System.Drawing.Point(34, 208);
             this.btnQuitarImplemento.Margin = new System.Windows.Forms.Padding(2);
             this.btnQuitarImplemento.Name = "btnQuitarImplemento";
-            this.btnQuitarImplemento.Size = new System.Drawing.Size(183, 43);
+            this.btnQuitarImplemento.Size = new System.Drawing.Size(206, 43);
             this.btnQuitarImplemento.TabIndex = 58;
-            this.btnQuitarImplemento.Text = "Quitar Implemento";
+            this.btnQuitarImplemento.Text = "<- Quitar Implemento";
             this.btnQuitarImplemento.UseVisualStyleBackColor = false;
             this.btnQuitarImplemento.Click += new System.EventHandler(this.btnQuitarImplemento_Click);
             // 
@@ -76,12 +79,12 @@
             // 
             this.btnAñadirImplemento.BackColor = System.Drawing.Color.PaleGreen;
             this.btnAñadirImplemento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAñadirImplemento.Location = new System.Drawing.Point(53, 152);
+            this.btnAñadirImplemento.Location = new System.Drawing.Point(34, 152);
             this.btnAñadirImplemento.Margin = new System.Windows.Forms.Padding(2);
             this.btnAñadirImplemento.Name = "btnAñadirImplemento";
-            this.btnAñadirImplemento.Size = new System.Drawing.Size(178, 41);
+            this.btnAñadirImplemento.Size = new System.Drawing.Size(206, 41);
             this.btnAñadirImplemento.TabIndex = 56;
-            this.btnAñadirImplemento.Text = "Añadir Implemento";
+            this.btnAñadirImplemento.Text = "Añadir Implemento ->";
             this.btnAñadirImplemento.UseVisualStyleBackColor = false;
             this.btnAñadirImplemento.Click += new System.EventHandler(this.btnAñadirImplemento_Click);
             // 
@@ -95,7 +98,7 @@
             this.panel7.Controls.Add(this.btnAñadirImplemento);
             this.panel7.Controls.Add(this.txtPrecioCongelado);
             this.panel7.Controls.Add(this.label20);
-            this.panel7.Location = new System.Drawing.Point(334, 174);
+            this.panel7.Location = new System.Drawing.Point(344, 174);
             this.panel7.Margin = new System.Windows.Forms.Padding(2);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(281, 277);
@@ -185,37 +188,73 @@
             this.label10.Location = new System.Drawing.Point(10, 23);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(429, 25);
+            this.label10.Size = new System.Drawing.Size(663, 25);
             this.label10.TabIndex = 0;
-            this.label10.Text = "🔔 Gestion de Implementos para la Reserva";
+            this.label10.Text = "🔔 Gestion de Implementos para la Reserva                                       ";
             // 
             // dgvImplementoReserva
             // 
             this.dgvImplementoReserva.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvImplementoReserva.Location = new System.Drawing.Point(655, 147);
+            this.dgvImplementoReserva.Location = new System.Drawing.Point(652, 147);
             this.dgvImplementoReserva.Margin = new System.Windows.Forms.Padding(2);
             this.dgvImplementoReserva.Name = "dgvImplementoReserva";
             this.dgvImplementoReserva.RowHeadersWidth = 51;
             this.dgvImplementoReserva.RowTemplate.Height = 24;
-            this.dgvImplementoReserva.Size = new System.Drawing.Size(262, 359);
+            this.dgvImplementoReserva.Size = new System.Drawing.Size(299, 415);
             this.dgvImplementoReserva.TabIndex = 60;
             // 
             // lblIdReserva
             // 
             this.lblIdReserva.AutoSize = true;
             this.lblIdReserva.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIdReserva.Location = new System.Drawing.Point(465, 111);
+            this.lblIdReserva.Location = new System.Drawing.Point(522, 136);
             this.lblIdReserva.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblIdReserva.Name = "lblIdReserva";
             this.lblIdReserva.Size = new System.Drawing.Size(20, 25);
             this.lblIdReserva.TabIndex = 55;
             this.lblIdReserva.Text = "-";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(21, 95);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(288, 50);
+            this.label1.TabIndex = 55;
+            this.label1.Text = "Implementos Disponibles      \r\npara la reserva";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(681, 111);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(254, 25);
+            this.label2.TabIndex = 61;
+            this.label2.Text = "Implementos Reservados";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(378, 136);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(125, 25);
+            this.label3.TabIndex = 62;
+            this.label3.Text = "ID Reserva:";
+            // 
             // FormReservaImplemento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(986, 573);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblIdReserva);
             this.Controls.Add(this.dgvImplementoReserva);
             this.Controls.Add(this.dgImplementoSede);
@@ -250,5 +289,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DataGridView dgvImplementoReserva;
         private System.Windows.Forms.Label lblIdReserva;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }

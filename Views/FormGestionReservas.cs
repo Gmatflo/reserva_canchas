@@ -279,7 +279,7 @@ namespace reserva_canchas
             Form principal = Application.OpenForms["FormPrincipal"];
             if (principal != null)
             {
-                FormPago formPago = new FormPago(((FormPrincipal)principal).pagoController, idReservaSeleccionada);
+                FormPago formPago = new FormPago(((FormPrincipal)principal).pagoController, this.reservaController, idReservaSeleccionada);
                 formPago.Show();
                 this.Hide();
             }

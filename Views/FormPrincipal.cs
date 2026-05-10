@@ -52,13 +52,6 @@ namespace MultiSport_Manager.Views
             this.Hide();
         }
 
-        private void lblPagos_Click(object sender, EventArgs e)
-        {
-            FormPago formPago = new FormPago(this.pagoController);
-            formPago.Show();
-            this.Hide();
-        }
-
         private void lblReservas_Click(object sender, EventArgs e)
         {
             FormGestionReservas formReservas = new FormGestionReservas(this.reservaController, this.clienteController, this.canchaController);

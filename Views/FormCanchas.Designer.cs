@@ -105,9 +105,9 @@
             this.label10.Location = new System.Drawing.Point(16, 15);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(230, 25);
+            this.label10.Size = new System.Drawing.Size(350, 25);
             this.label10.TabIndex = 0;
-            this.label10.Text = "🏟️Gestion de Canchas";
+            this.label10.Text = "🏟️Gestion de Canchas                    ";
             // 
             // panel7
             // 

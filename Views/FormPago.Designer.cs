@@ -81,7 +81,7 @@
             // 
             this.btnEliminar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminar.Location = new System.Drawing.Point(285, 338);
+            this.btnEliminar.Location = new System.Drawing.Point(294, 338);
             this.btnEliminar.Margin = new System.Windows.Forms.Padding(2);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(87, 32);
@@ -178,7 +178,7 @@
             this.lblIDReservaValue.AutoSize = true;
             this.lblIDReservaValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIDReservaValue.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.lblIDReservaValue.Location = new System.Drawing.Point(129, 6);
+            this.lblIDReservaValue.Location = new System.Drawing.Point(129, 3);
             this.lblIDReservaValue.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblIDReservaValue.Name = "lblIDReservaValue";
             this.lblIDReservaValue.Size = new System.Drawing.Size(27, 29);
@@ -289,6 +289,10 @@
             // cmbEstadoPago
             // 
             this.cmbEstadoPago.FormattingEnabled = true;
+            this.cmbEstadoPago.Items.AddRange(new object[] {
+            "Completado",
+            "Parcial",
+            "Reembolsado"});
             this.cmbEstadoPago.Location = new System.Drawing.Point(480, 113);
             this.cmbEstadoPago.Margin = new System.Windows.Forms.Padding(2);
             this.cmbEstadoPago.Name = "cmbEstadoPago";
@@ -341,6 +345,9 @@
             // cmbMetodoPago
             // 
             this.cmbMetodoPago.FormattingEnabled = true;
+            this.cmbMetodoPago.Items.AddRange(new object[] {
+            "Efectivo",
+            "Online"});
             this.cmbMetodoPago.Location = new System.Drawing.Point(480, 88);
             this.cmbMetodoPago.Margin = new System.Windows.Forms.Padding(2);
             this.cmbMetodoPago.Name = "cmbMetodoPago";
@@ -447,9 +454,9 @@
             this.label7.Location = new System.Drawing.Point(26, 15);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(211, 25);
+            this.label7.Size = new System.Drawing.Size(253, 25);
             this.label7.TabIndex = 0;
-            this.label7.Text = "📅 Gestion de Pagos";
+            this.label7.Text = "📅 Gestion de Pagos       ";
             // 
             // FormPago
             // 

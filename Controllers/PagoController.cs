@@ -11,10 +11,7 @@ namespace MultiSport_Manager.Controllers
     {
         private List<Pago> pagos = new List<Pago>();
 
-        public List<Pago> ListarTodo()
-        {
-            return pagos;
-        }
+        public List<Pago> ListarTodo() { return pagos; }
 
         public List<Pago> ListarPorReserva(int pIdReserva)
         {
@@ -26,17 +23,30 @@ namespace MultiSport_Manager.Controllers
             return pagos.Exists(p => p.IDPago == pIdPago);
         }
 
-        public bool RegistrarPago(Pago pPago, int pIdReserva)
+        // Método estrella 1: Suma solo los pagos que NO están reembolsados
+        public double SumaPagosActivos(int pIdReserva, int pIdPagoIgnorar = -1)
         {
-            if (Existe(pPago.IDPago) || pPago.MontoPagado <= 0)
+            return pagos.Where(p => p.Reserva != null &&
+                                    p.Reserva.IDReserva == pIdReserva &&
+                                    p.EstadoPago != "Reembolsado" &&
+                                    p.IDPago != pIdPagoIgnorar)
+                        .Sum(p => p.MontoPagado);
+        }
+
+        // Método estrella 2: Cambia el estado de todos los pagos activos de una reserva
+        public void SincronizarEstados(int pIdReserva, string nuevoEstado)
+        {
+            foreach (var pago in pagos.Where(p => p.Reserva.IDReserva == pIdReserva && p.EstadoPago != "Reembolsado"))
             {
-                return false;
+                pago.EstadoPago = nuevoEstado;
             }
-            else
-            {
-                pagos.Add(pPago);
-                return true;
-            }
+        }
+
+        public bool RegistrarPago(Pago pPago)
+        {
+            if (Existe(pPago.IDPago) || pPago.MontoPagado <= 0) return false;
+            pagos.Add(pPago);
+            return true;
         }
 
         public bool EditarPago(Pago pPago)
@@ -50,12 +60,13 @@ namespace MultiSport_Manager.Controllers
             return false;
         }
 
-        public bool EliminarPago(int pIdPago)
+        // En vez de eliminar de la lista, lo "Reembolsamos" (Borrado Lógico)
+        public bool ReembolsarPago(int pIdPago)
         {
             var pago = pagos.Find(p => p.IDPago == pIdPago);
-            if (pago != null)
+            if (pago != null && pago.EstadoPago != "Reembolsado")
             {
-                pagos.Remove(pago);
+                pago.EstadoPago = "Reembolsado";
                 return true;
             }
             return false;

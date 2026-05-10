@@ -449,9 +449,9 @@
             this.label7.Location = new System.Drawing.Point(26, 15);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(212, 25);
+            this.label7.Size = new System.Drawing.Size(344, 25);
             this.label7.TabIndex = 0;
-            this.label7.Text = "📅 Gestion de Sedes";
+            this.label7.Text = "📅 Gestion de Sedes                      ";
             // 
             // dgvUbigeos
             // 

@@ -31,6 +31,7 @@
             this.dgvImplementos = new System.Windows.Forms.DataGridView();
             this.btnEliminarImplemento = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.txtStockTotal = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblIdSede = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -58,7 +59,6 @@
             this.lblRegresarSedes = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.txtStockTotal = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvImplementos)).BeginInit();
             this.panel7.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -117,6 +117,14 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(770, 281);
             this.panel7.TabIndex = 38;
+            // 
+            // txtStockTotal
+            // 
+            this.txtStockTotal.Location = new System.Drawing.Point(158, 109);
+            this.txtStockTotal.Margin = new System.Windows.Forms.Padding(2);
+            this.txtStockTotal.Name = "txtStockTotal";
+            this.txtStockTotal.Size = new System.Drawing.Size(186, 20);
+            this.txtStockTotal.TabIndex = 58;
             // 
             // panel1
             // 
@@ -420,17 +428,9 @@
             this.label10.Location = new System.Drawing.Point(16, 15);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(266, 25);
+            this.label10.Size = new System.Drawing.Size(332, 25);
             this.label10.TabIndex = 0;
-            this.label10.Text = "🏟️Gestion de Implementos";
-            // 
-            // txtStockTotal
-            // 
-            this.txtStockTotal.Location = new System.Drawing.Point(158, 109);
-            this.txtStockTotal.Margin = new System.Windows.Forms.Padding(2);
-            this.txtStockTotal.Name = "txtStockTotal";
-            this.txtStockTotal.Size = new System.Drawing.Size(186, 20);
-            this.txtStockTotal.TabIndex = 58;
+            this.label10.Text = "🏟️Gestion de Implementos           ";
             // 
             // FormImplementos
             // 
