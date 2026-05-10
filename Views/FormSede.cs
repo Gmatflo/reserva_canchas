@@ -1,5 +1,6 @@
 ﻿using MultiSport_Manager.Controllers;
 using MultiSport_Manager.Entities;
+using MultiSport_Manager.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -219,6 +220,23 @@ namespace reserva_canchas.forms
             Form principal = Application.OpenForms["FormPrincipal"];
             if (principal != null) principal.Show();
             this.Hide();
+        }
+
+        private void btnRegistrarImplementos_Click(object sender, EventArgs e)
+        {
+            if (dgvSedes.SelectedRows.Count > 0)
+            {
+                var fila = dgvSedes.SelectedRows[0];
+                int idSede = Convert.ToInt32(fila.Cells["IDSede"].Value);
+
+                FormImplementos formImplemento = new FormImplementos(idSede);
+                formImplemento.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Seleccione una sede primero");
+            }
         }
     }
 }
