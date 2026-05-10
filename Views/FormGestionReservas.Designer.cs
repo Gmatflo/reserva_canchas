@@ -54,7 +54,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnImplementoReserva = new System.Windows.Forms.Button();
             this.dtpHoraFin = new System.Windows.Forms.DateTimePicker();
             this.dtpHoraInicio = new System.Windows.Forms.DateTimePicker();
             this.txtIDCancha = new System.Windows.Forms.TextBox();
@@ -62,7 +62,7 @@
             this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.txtMontoTotal = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnRegistrarPago = new System.Windows.Forms.Button();
             this.cmbEstado = new System.Windows.Forms.ComboBox();
             this.txtIDReserva = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
@@ -130,9 +130,9 @@
             this.label7.Location = new System.Drawing.Point(26, 15);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(233, 25);
+            this.label7.Size = new System.Drawing.Size(317, 25);
             this.label7.TabIndex = 0;
-            this.label7.Text = "📅 Gestion de reservas";
+            this.label7.Text = "📅 Gestion de reservas              ";
             // 
             // panel3
             // 
@@ -300,7 +300,7 @@
             this.panel7.Controls.Add(this.label2);
             this.panel7.Controls.Add(this.label3);
             this.panel7.Controls.Add(this.label4);
-            this.panel7.Controls.Add(this.button5);
+            this.panel7.Controls.Add(this.btnImplementoReserva);
             this.panel7.Controls.Add(this.dtpHoraFin);
             this.panel7.Controls.Add(this.dtpHoraInicio);
             this.panel7.Controls.Add(this.txtIDCancha);
@@ -308,7 +308,7 @@
             this.panel7.Controls.Add(this.dtpFecha);
             this.panel7.Controls.Add(this.txtMontoTotal);
             this.panel7.Controls.Add(this.label19);
-            this.panel7.Controls.Add(this.button4);
+            this.panel7.Controls.Add(this.btnRegistrarPago);
             this.panel7.Controls.Add(this.cmbEstado);
             this.panel7.Controls.Add(this.txtIDReserva);
             this.panel7.Controls.Add(this.label25);
@@ -428,15 +428,16 @@
             this.label4.TabIndex = 48;
             this.label4.Text = "Auditoria";
             // 
-            // button5
+            // btnImplementoReserva
             // 
-            this.button5.Location = new System.Drawing.Point(224, 225);
-            this.button5.Margin = new System.Windows.Forms.Padding(2);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(211, 33);
-            this.button5.TabIndex = 47;
-            this.button5.Text = "Registrar Implemento para Reserva";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnImplementoReserva.Location = new System.Drawing.Point(224, 225);
+            this.btnImplementoReserva.Margin = new System.Windows.Forms.Padding(2);
+            this.btnImplementoReserva.Name = "btnImplementoReserva";
+            this.btnImplementoReserva.Size = new System.Drawing.Size(211, 33);
+            this.btnImplementoReserva.TabIndex = 47;
+            this.btnImplementoReserva.Text = "Registrar Implemento para Reserva";
+            this.btnImplementoReserva.UseVisualStyleBackColor = true;
+            this.btnImplementoReserva.Click += new System.EventHandler(this.btnImplementoReserva_Click);
             // 
             // dtpHoraFin
             // 
@@ -508,16 +509,16 @@
             this.label19.TabIndex = 40;
             this.label19.Text = "- MontoTotal:";
             // 
-            // button4
+            // btnRegistrarPago
             // 
-            this.button4.Location = new System.Drawing.Point(22, 225);
-            this.button4.Margin = new System.Windows.Forms.Padding(2);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(176, 33);
-            this.button4.TabIndex = 28;
-            this.button4.Text = "Registrar Pago de Reserva";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.btnRegistrarPago_Click);
+            this.btnRegistrarPago.Location = new System.Drawing.Point(22, 225);
+            this.btnRegistrarPago.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRegistrarPago.Name = "btnRegistrarPago";
+            this.btnRegistrarPago.Size = new System.Drawing.Size(176, 33);
+            this.btnRegistrarPago.TabIndex = 28;
+            this.btnRegistrarPago.Text = "Registrar Pago de Reserva";
+            this.btnRegistrarPago.UseVisualStyleBackColor = true;
+            this.btnRegistrarPago.Click += new System.EventHandler(this.btnRegistrarPago_Click);
             // 
             // cmbEstado
             // 
@@ -778,7 +779,7 @@
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.DataGridView dgvReservas;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnRegistrarPago;
         private System.Windows.Forms.ComboBox cmbEstado;
         private System.Windows.Forms.TextBox txtIDReserva;
         private System.Windows.Forms.Label label25;
@@ -790,7 +791,7 @@
         private System.Windows.Forms.DateTimePicker dtpHoraInicio;
         private System.Windows.Forms.TextBox txtIDCancha;
         private System.Windows.Forms.TextBox txtIDCliente;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnImplementoReserva;
         private System.Windows.Forms.DateTimePicker dtpHoraFin;
         private System.Windows.Forms.DateTimePicker dtpFechaCreacion;
         private System.Windows.Forms.TextBox txtModificadoPor;

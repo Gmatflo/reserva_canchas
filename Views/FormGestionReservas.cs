@@ -279,7 +279,7 @@ namespace reserva_canchas
             Form principal = Application.OpenForms["FormPrincipal"];
             if (principal != null)
             {
-                FormPago formPago = new FormPago(((FormPrincipal)principal).pagoController, idReservaSeleccionada);
+                FormPago formPago = new FormPago(((FormPrincipal)principal).pagoController, this.reservaController, idReservaSeleccionada);
                 formPago.Show();
                 this.Hide();
             }
@@ -292,6 +292,21 @@ namespace reserva_canchas
             Form principal = Application.OpenForms["FormPrincipal"];
             if (principal != null) principal.Show();
             this.Hide();
+        }
+
+        private void btnImplementoReserva_Click(object sender, EventArgs e)
+        {
+            if (idReservaSeleccionada != -1)
+            {
+                // Llamamos al NUEVO nombre del form y le pasamos el controlador correcto
+                FormReservaImplemento form = new FormReservaImplemento(idReservaSeleccionada, this.reservaController);
+                form.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Seleccione una reserva primero.");
+            }
         }
     }
 }

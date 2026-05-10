@@ -32,15 +32,14 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblSedes = new System.Windows.Forms.Label();
             this.lblNotificaciones = new System.Windows.Forms.Label();
             this.lblAdministradores = new System.Windows.Forms.Label();
             this.lblReportes = new System.Windows.Forms.Label();
-            this.lblPagos = new System.Windows.Forms.Label();
             this.lblCanchas = new System.Windows.Forms.Label();
             this.lblClientes = new System.Windows.Forms.Label();
             this.lblReservas = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
-            this.lblSedes = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -86,7 +85,6 @@
             this.panel1.Controls.Add(this.lblNotificaciones);
             this.panel1.Controls.Add(this.lblAdministradores);
             this.panel1.Controls.Add(this.lblReportes);
-            this.panel1.Controls.Add(this.lblPagos);
             this.panel1.Controls.Add(this.lblCanchas);
             this.panel1.Controls.Add(this.lblClientes);
             this.panel1.Controls.Add(this.lblReservas);
@@ -96,6 +94,19 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(902, 552);
             this.panel1.TabIndex = 87;
+            // 
+            // lblSedes
+            // 
+            this.lblSedes.AutoSize = true;
+            this.lblSedes.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSedes.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblSedes.Location = new System.Drawing.Point(568, 410);
+            this.lblSedes.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblSedes.Name = "lblSedes";
+            this.lblSedes.Size = new System.Drawing.Size(137, 31);
+            this.lblSedes.TabIndex = 8;
+            this.lblSedes.Text = "💼 Sedes";
+            this.lblSedes.Click += new System.EventHandler(this.lblSedes_Click);
             // 
             // lblNotificaciones
             // 
@@ -135,19 +146,6 @@
             this.lblReportes.TabIndex = 5;
             this.lblReportes.Text = "📊 Reportes";
             this.lblReportes.Click += new System.EventHandler(this.lblReportes_Click);
-            // 
-            // lblPagos
-            // 
-            this.lblPagos.AutoSize = true;
-            this.lblPagos.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPagos.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblPagos.Location = new System.Drawing.Point(568, 215);
-            this.lblPagos.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblPagos.Name = "lblPagos";
-            this.lblPagos.Size = new System.Drawing.Size(137, 31);
-            this.lblPagos.TabIndex = 4;
-            this.lblPagos.Text = "💵 Pagos";
-            this.lblPagos.Click += new System.EventHandler(this.lblPagos_Click);
             // 
             // lblCanchas
             // 
@@ -200,19 +198,6 @@
             this.label24.TabIndex = 0;
             this.label24.Text = "Módulos";
             // 
-            // lblSedes
-            // 
-            this.lblSedes.AutoSize = true;
-            this.lblSedes.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSedes.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblSedes.Location = new System.Drawing.Point(568, 410);
-            this.lblSedes.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblSedes.Name = "lblSedes";
-            this.lblSedes.Size = new System.Drawing.Size(137, 31);
-            this.lblSedes.TabIndex = 8;
-            this.lblSedes.Text = "💼 Sedes";
-            this.lblSedes.Click += new System.EventHandler(this.lblSedes_Click);
-            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -238,7 +223,6 @@
         private System.Windows.Forms.Label lblNotificaciones;
         private System.Windows.Forms.Label lblAdministradores;
         private System.Windows.Forms.Label lblReportes;
-        private System.Windows.Forms.Label lblPagos;
         private System.Windows.Forms.Label lblCanchas;
         private System.Windows.Forms.Label lblClientes;
         private System.Windows.Forms.Label lblReservas;
