@@ -82,9 +82,12 @@ namespace reserva_canchas
                 dgvPagos.DataSource = source;
             }
 
-            // Actualizamos la etiqueta superior para que el usuario vea cómo va la deuda
+            // aaaaaa
             double sumaActivos = pagoController.SumaPagosActivos(idReservaActual);
-            lblIDReservaValue.Text = $"Reserva #{idReservaActual} | Total: S/{reservaActual.MontoTotal} | Pagado: S/{sumaActivos} | Faltante: S/{reservaActual.MontoTotal - sumaActivos}";
+            lblIDReservaValue.Text = idReservaActual.ToString();
+            lblMontoTotalReserva.Text = reservaActual.MontoTotal.ToString();
+            lblPagado.Text = sumaActivos.ToString();
+            lblFaltante.Text = (reservaActual.MontoTotal - sumaActivos).ToString();
         }
 
         private void LimpiarCampos()

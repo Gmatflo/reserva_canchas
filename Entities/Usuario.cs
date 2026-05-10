@@ -10,6 +10,6 @@ namespace MultiSport_Manager.Entities
     {
         public int IDUsuario { get; set; }
         public string Nombre { get; set; }
-        public string Contrasena { get; set; }
+        public string Contrasena { get; set; } //a
     }
 }

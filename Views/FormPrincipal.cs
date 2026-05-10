@@ -61,7 +61,7 @@ namespace MultiSport_Manager.Views
 
         private void lblReportes_Click(object sender, EventArgs e)
         {
-            FormReportes formReportes = new FormReportes(this.reporteController);
+            FormReportes formReportes = new FormReportes(this.reporteController, this.pagoController, this.reservaController);
             formReportes.Show();
             this.Hide();
         }
