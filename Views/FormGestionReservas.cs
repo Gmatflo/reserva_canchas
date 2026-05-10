@@ -111,8 +111,21 @@ namespace reserva_canchas
                     return;
                 }
 
+                if (canchaReal.Estado != "Disponible")
+                {
+                    MessageBox.Show("La cancha no está disponible. Estado actual: " + canchaReal.Estado);
+                    return;
+                }
+
                 TimeSpan inicio = dtpHoraInicio.Value.TimeOfDay;
                 TimeSpan fin = dtpHoraFin.Value.TimeOfDay;
+
+                if (inicio < canchaReal.Sede.HoraApertura || fin > canchaReal.Sede.HoraCierre)
+                {
+                    MessageBox.Show(string.Format("La Sede atiende de {0} a {1}. Reserva fuera de rango.",
+                        canchaReal.Sede.HoraApertura.ToString(@"hh\:mm"), canchaReal.Sede.HoraCierre.ToString(@"hh\:mm")));
+                    return;
+                }
 
                 if (inicio >= fin || (fin - inicio).TotalMinutes % 60 != 0)
                 {
@@ -144,7 +157,6 @@ namespace reserva_canchas
                 return;
             }
 
-            // Actualización fuera del try-catch para evitar falsos errores
             MostrarEnDataGrid(reservaController.ListarTodo());
             LimpiarCampos();
         }

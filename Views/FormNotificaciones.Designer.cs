@@ -316,9 +316,9 @@
             this.label20.Location = new System.Drawing.Point(206, 40);
             this.label20.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(75, 15);
+            this.label20.Size = new System.Drawing.Size(70, 15);
             this.label20.TabIndex = 9;
-            this.label20.Text = "ID Usuario";
+            this.label20.Text = "ID Cliente";
             // 
             // label19
             // 
